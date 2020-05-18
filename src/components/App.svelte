@@ -1,11 +1,11 @@
 <script>
-  export let name = "Svelte ";
+  export let name = "Svelte";
 </script>
 
 <style>
-  h1 {
-    text-align: center;
-  }
+
 </style>
 
-<h1>Hello {name}!</h1>
+<h1 class="text-red-500 text-5xl text-center font-hairline py-8">
+  Hello, it's me, {name}!
+</h1>

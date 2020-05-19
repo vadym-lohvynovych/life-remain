@@ -6,9 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "parcel src/index.html",
-    "build": "parcel build src/index.html --no-source-maps",
+    "build": "parcel build src/index.html src/_redirects --no-source-maps && npm run build-storybook",
     "storybook": "start-storybook",
-    "build-storybook": "build-storybook -c .storybook -o storyboook-dist"
+    "build-storybook": "build-storybook -c .storybook -o dist/storybook"
   },
   "repository": {
     "type": "git",

@@ -4,7 +4,7 @@ const autoprefixer = require('autoprefixer')
 
 const purgecssConfig = {
   content: ['./src/index.html', './src/**/*.svelte'],
-  whitelistPatterns: [/svelte-/],
+  whitelistPatterns: [/svelte-/, /flatpickr/],
   defaultExtractor: (content) => content.match(/[A-Za-z0-9-_:/]+/g) || [],
 }
 

@@ -30,8 +30,12 @@
     "@storybook/svelte": "^5.3.18",
     "autoprefixer": "^9.8.0",
     "babel-loader": "^8.1.0",
+    "eslint": "^7.0.0",
+    "eslint-plugin-svelte3": "^2.7.3",
     "parcel-bundler": "^1.12.4",
     "parcel-plugin-svelte": "^4.0.6",
+    "prettier": "^2.0.5",
+    "prettier-plugin-svelte": "^1.1.0",
     "svelte": "^3.22.3",
     "svelte-loader": "^2.13.6",
     "tailwindcss": "^1.4.6"

@@ -7,42 +7,50 @@ import '../../styles/global.css';
 addParameters({
   viewport: {
     viewports: {
-      mobile: {
-        name: 'Mobile',
+      mobileSmall: {
+        name: '320',
         styles: {
           width: '320px',
-          height: '568px',
+          height: '85vh',
+        },
+      },
+      mobile: {
+        name: '400',
+        styles: {
+          width: '400px',
+          height: '85vh',
         },
       },
       tablet: {
-        name: 'Tablet',
+        name: '768',
         styles: {
           width: '768px',
-          height: '1024px',
+          height: '85vh',
         },
       },
       laptop: {
-        name: 'Laptop',
+        name: '1200',
         styles: {
           width: '1200px',
-          height: '1024px',
+          height: '85vh',
         },
       },
       desktop: {
-        name: 'Desktop',
+        name: '1366',
         styles: {
           width: '1366px',
-          height: '1024px',
+          height: '85vh',
         },
       },
       fullHD: {
-        name: 'FullHD',
+        name: '1920',
         styles: {
           width: '1920px',
-          height: '1080px',
+          height: '85vh',
         },
       },
     },
+    defaultViewport: 'mobile'
   },
 });
 

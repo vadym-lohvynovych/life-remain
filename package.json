@@ -39,5 +39,8 @@
     "svelte": "^3.22.3",
     "svelte-loader": "^2.13.6",
     "tailwindcss": "^1.4.6"
+  },
+  "dependencies": {
+    "svelte-flatpickr": "^2.4.0"
   }
 }

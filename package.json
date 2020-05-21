@@ -26,6 +26,7 @@
   "devDependencies": {
     "@babel/core": "^7.9.6",
     "@fullhuman/postcss-purgecss": "^2.2.0",
+    "@storybook/addon-viewport": "^5.3.18",
     "@storybook/svelte": "^5.3.18",
     "autoprefixer": "^9.8.0",
     "babel-loader": "^8.1.0",

@@ -1,8 +1,6 @@
 
 import DatePicker from './DatePicker.svelte';
 
-import '../../styles/global.css';
-
 export default { title: 'Date Picker' };
 
 export const Default = () => ({

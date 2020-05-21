@@ -3,3 +3,7 @@
 @tailwind utilities;
 
 @import './grid.css';
+
+button, input, select, textarea {
+  font-family: inherit;
+}

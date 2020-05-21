@@ -1,6 +1,5 @@
 <script>
   import Flatpickr from 'svelte-flatpickr'
-  import 'flatpickr/dist/flatpickr.css'
 
   export let options = {}
   export let date = null

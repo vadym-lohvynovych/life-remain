@@ -3,11 +3,13 @@
 
   export let value = null
   export let options = {}
+  export let parentClassName = ''
+  export let inputClass = ''
 </script>
 
-<div class="pt-8 text-center">
+<div class="pt-8 text-center {parentClassName}">
   <input
-    class="field text-center rounded rounded-md block w-full mx-auto"
+    class="field text-center rounded rounded-md block mx-auto"
     use:asFlatpickr={options}
     on:change
     bind:value />

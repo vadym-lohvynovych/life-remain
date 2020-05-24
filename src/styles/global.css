@@ -1,5 +1,18 @@
 @tailwind base;
 @tailwind components;
+
+.field {
+  @apply py-1 px-5 rounded-sm border-2 border-gray-300 block mx-auto mt-5 outline-none transition-all duration-200;
+}
+
+.field:focus {
+  @apply border-gray-400 shadow-lg;
+}
+
 @tailwind utilities;
 
 @import './grid.css';
+
+button, input, select, textarea {
+  font-family: inherit;
+}

@@ -4,7 +4,6 @@
   export let value = null
   export let options = {}
   export let parentClassName = ''
-  export let inputClass = ''
 </script>
 
 <div class="pt-8 text-center {parentClassName}">

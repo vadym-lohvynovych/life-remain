@@ -5,11 +5,13 @@ export default { title: 'Date Picker' }
 const change = (selectedDates, dateStr, instance) => {
   console.log('options change', dateStr)
 }
+
 const defaultOptions = {
   onChange: change,
   altInput: true,
   maxDate: new Date(),
 }
+
 const optionsInline = {
   inline: true,
   static: true,
@@ -19,8 +21,8 @@ export const DatePickerToggable = () => ({
   Component: Flatpickr,
   props: {
     options: defaultOptions,
-    parentClassName: 'px-8'
-  }
+    parentClassName: 'px-8',
+  },
 })
 
 export const DatePickerInlineStatic = () => ({
@@ -28,7 +30,7 @@ export const DatePickerInlineStatic = () => ({
   props: {
     options: {
       ...defaultOptions,
-      ...optionsInline
+      ...optionsInline,
     },
-  }
+  },
 })

@@ -8,7 +8,7 @@
 
 <div class="pt-8 text-center {parentClassName}">
   <input
-    class="field text-center rounded rounded-md block mx-auto"
+    class="field text-center rounded rounded-md block mx-auto mt-5"
     use:asFlatpickr={options}
     on:change
     bind:value />

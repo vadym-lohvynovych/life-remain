@@ -2,7 +2,7 @@
 @tailwind components;
 
 .field {
-  @apply py-1 px-5 rounded-sm border-2 border-gray-400 mx-auto outline-none transition-all duration-200;
+  @apply py-1 px-5 rounded-sm border-2 border-gray-400 outline-none transition-all duration-200;
 }
 
 @tailwind utilities;

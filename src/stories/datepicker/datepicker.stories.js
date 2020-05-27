@@ -10,7 +10,7 @@ const change = (selectedDates, dateStr, instance) => {
 const defaultOptions = {
   onChange: change,
   altInput: true,
-  maxDate: new Date(),  
+  maxDate: new Date(),
 }
 
 const optionsInline = {
@@ -23,7 +23,7 @@ export const DatePickerToggable = () => ({
   props: {
     options: defaultOptions,
     parentClassName: 'px-8',
-    value: birthDate.get()
+    value: birthDate.get(),
   },
 })
 
@@ -34,6 +34,6 @@ export const DatePickerInlineStatic = () => ({
       ...defaultOptions,
       ...optionsInline,
     },
-    value:birthDate.get()
-  }
+    value: birthDate.get(),
+  },
 })

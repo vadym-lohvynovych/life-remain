@@ -11,7 +11,7 @@
     "storybook": "start-storybook",
     "build-storybook": "npm run clean && build-storybook -c .storybook -o dist",
     "build-storybook-prod": "build-storybook -c .storybook -o dist/storybook",
-    "build-all": "npm run clean && npm run build && npm run build-storybook-prod"
+    "build-all": "npm test && npm run clean && npm run build && npm run build-storybook-prod"
   },
   "repository": {
     "type": "git",

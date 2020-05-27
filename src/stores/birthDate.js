@@ -1,14 +1,14 @@
-import { writable, get } from 'svelte/store';
+import { writable, get } from 'svelte/store'
 
 function createBirthDate() {
-  const birthDate = writable(localStorage.getItem("birthDate") || null);
+  const birthDate = writable(localStorage.getItem('birthDate') || null)
 
-  birthDate.subscribe(val => localStorage.setItem("birthDate", val));
+  birthDate.subscribe((val) => localStorage.setItem('birthDate', val))
 
-	return {
+  return {
     set: birthDate.set,
-    get: () => get(birthDate)
-	};
+    get: () => get(birthDate),
+  }
 }
 
-export const birthDate = createBirthDate();
+export const birthDate = createBirthDate()

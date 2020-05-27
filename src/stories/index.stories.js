@@ -1,8 +1,8 @@
-import { addParameters } from '@storybook/svelte';
+import { addParameters } from '@storybook/svelte'
 
-import '../styles/global.css';
-import 'flatpickr/dist/flatpickr.css';
-import 'flatpickr/dist/themes/light.css';
+import '../styles/global.css'
+import 'flatpickr/dist/flatpickr.css'
+import 'flatpickr/dist/themes/light.css'
 
 addParameters({
   viewport: {
@@ -50,6 +50,6 @@ addParameters({
         },
       },
     },
-    defaultViewport: 'mobile'
+    defaultViewport: 'mobile',
   },
-});
+})

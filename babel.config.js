@@ -1,3 +1,4 @@
+//for jest
 module.exports = {
   presets: [
     [

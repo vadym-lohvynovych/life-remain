@@ -1,16 +1,19 @@
 import Datepicker from './Datepicker.svelte'
 
 export default { title: 'Date Picker' }
-import { date } from '../../stores'
+import { birthDate } from '../../stores/birthDate'
+import { get } from 'svelte/store';
 
+
+let date = get(birthDate)
 const change = (selectedDates, dateStr, instance) => {
-  date.set(dateStr)
+  birthDate.set(dateStr)
 }
 
 const defaultOptions = {
   onChange: change,
   altInput: true,
-  maxDate: new Date(),
+  maxDate: new Date(),  
 }
 
 const optionsInline = {
@@ -23,6 +26,7 @@ export const DatePickerToggable = () => ({
   props: {
     options: defaultOptions,
     parentClassName: 'px-8',
+    value: date
   },
 })
 
@@ -33,5 +37,6 @@ export const DatePickerInlineStatic = () => ({
       ...defaultOptions,
       ...optionsInline,
     },
+    value: date
   }
 })

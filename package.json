@@ -32,7 +32,7 @@
     "babel-loader": "^8.1.0",
     "eslint": "^7.0.0",
     "eslint-plugin-svelte3": "^2.7.3",
-    "flatpickr": "^4.6.3",
+    "jest": "^26.0.1",
     "parcel-bundler": "^1.12.4",
     "parcel-plugin-svelte": "^4.0.6",
     "prettier": "^2.0.5",
@@ -41,5 +41,8 @@
     "svelte": "^3.22.3",
     "svelte-loader": "^2.13.6",
     "tailwindcss": "^1.4.6"
+  },
+  "dependencies": {
+    "flatpickr": "^4.6.3"
   }
 }

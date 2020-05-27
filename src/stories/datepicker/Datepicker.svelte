@@ -1,5 +1,6 @@
 <script>
   import { asFlatpickr } from '../../actions/flatpickr'
+  import { onMount } from 'svelte'
 
   export let options = {}
   export let value = null

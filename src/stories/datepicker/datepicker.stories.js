@@ -1,36 +1,39 @@
-import Flatpickr from './Datepicker.svelte'
+import Datepicker from './Datepicker.svelte';
 
-export default { title: 'Date Picker' }
+export default { title: 'Date Picker' };
+import { birthDate } from '../../stores/birthDate';
 
 const change = (selectedDates, dateStr, instance) => {
-  console.log('options change', dateStr)
-}
+  birthDate.set(dateStr);
+};
 
 const defaultOptions = {
   onChange: change,
   altInput: true,
-  maxDate: new Date(),
-}
+  maxDate: new Date()
+};
 
 const optionsInline = {
   inline: true,
-  static: true,
-}
+  static: true
+};
 
 export const DatePickerToggable = () => ({
-  Component: Flatpickr,
+  Component: Datepicker,
   props: {
     options: defaultOptions,
     parentClassName: 'px-8',
-  },
-})
+    value: birthDate.get()
+  }
+});
 
 export const DatePickerInlineStatic = () => ({
-  Component: Flatpickr,
+  Component: Datepicker,
   props: {
     options: {
       ...defaultOptions,
-      ...optionsInline,
+      ...optionsInline
     },
-  },
-})
+    value: birthDate.get()
+  }
+});

@@ -1,8 +1,9 @@
 <script>
   import { asFlatpickr } from '../../actions/flatpickr'
+  import { onMount } from 'svelte'
 
-  export let value = null
   export let options = {}
+  export let value = null
   export let parentClassName = ''
 </script>
 

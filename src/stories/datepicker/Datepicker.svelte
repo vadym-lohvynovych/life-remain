@@ -1,8 +1,8 @@
 <script>
   import { asFlatpickr } from '../../actions/flatpickr'
 
-  export let value = null
   export let options = {}
+  export let value = null
   export let parentClassName = ''
 </script>
 

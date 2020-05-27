@@ -1,9 +1,10 @@
-import Flatpickr from './Datepicker.svelte'
+import Datepicker from './Datepicker.svelte'
 
 export default { title: 'Date Picker' }
+import { date } from '../../stores'
 
 const change = (selectedDates, dateStr, instance) => {
-  console.log('options change', dateStr)
+  date.set(dateStr)
 }
 
 const defaultOptions = {
@@ -18,7 +19,7 @@ const optionsInline = {
 }
 
 export const DatePickerToggable = () => ({
-  Component: Flatpickr,
+  Component: Datepicker,
   props: {
     options: defaultOptions,
     parentClassName: 'px-8',
@@ -26,11 +27,11 @@ export const DatePickerToggable = () => ({
 })
 
 export const DatePickerInlineStatic = () => ({
-  Component: Flatpickr,
+  Component: Datepicker,
   props: {
     options: {
       ...defaultOptions,
       ...optionsInline,
     },
-  },
+  }
 })

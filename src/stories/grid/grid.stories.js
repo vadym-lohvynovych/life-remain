@@ -1,9 +1,9 @@
-import Grid from './Grid.svelte'
+import Grid from './Grid.svelte';
 
-import '../../styles/global.css'
+import '../../styles/global.css';
 
-export default { title: 'Grid' }
+export default { title: 'Grid' };
 
 export const Default = () => ({
-  Component: Grid,
-})
+  Component: Grid
+});

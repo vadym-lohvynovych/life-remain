@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "clean": "rimraf dist",
     "start": "parcel src/index.html",
     "build": "parcel build src/index.html --no-source-maps",
@@ -24,11 +24,13 @@
   },
   "homepage": "https://github.com/madvingovich/life-remain#readme",
   "devDependencies": {
-    "@babel/core": "^7.9.6",
+    "@babel/core": "^7.10.0",
+    "@babel/preset-env": "^7.10.0",
     "@fullhuman/postcss-purgecss": "^2.2.0",
     "@storybook/addon-viewport": "^5.3.18",
     "@storybook/svelte": "^5.3.18",
     "autoprefixer": "^9.8.0",
+    "babel-jest": "^26.0.1",
     "babel-loader": "^8.1.0",
     "eslint": "^7.0.0",
     "eslint-plugin-svelte3": "^2.7.3",

@@ -7,7 +7,7 @@ const change = (selectedDates, dateStr, instance) => {
   birthDate.set(dateStr);
 };
 
-const additionalClass = 'text-center rounded rounded-md block mx-auto mt-5';
+const additionalClass = 'text-center mx-auto mt-5 shadow-lg';
 
 const defaultOptions = {
   onChange: change,

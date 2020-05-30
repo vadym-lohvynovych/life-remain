@@ -20,8 +20,7 @@ export function asSlider(node) {
 
     node.dispatchEvent(
       new CustomEvent('slideMove', {
-        detail: { x, dx },
-        asd: 133
+        detail: { x, dx }
       })
     );
   }

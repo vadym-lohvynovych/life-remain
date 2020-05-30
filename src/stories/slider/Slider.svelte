@@ -13,10 +13,9 @@
   let slidesCount;
   let xOnSlideStart;
   let sliderPoints;
+  let activeSlideIndex = 1;
   // to calculate x on slidemove
   let currentTranslateX = 0;
-  let activeSlideIndex = 1;
-  let resizeTimeout = null;
 
   onMount(() => {
     window.addEventListener('resize', () => {

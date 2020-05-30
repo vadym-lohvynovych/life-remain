@@ -2,7 +2,7 @@ export function asSlider(node) {
   let x;
 
   function handleMousedown(e) {
-    x = e.clientX || e.touches[0].clientX;
+    x = typeof e.clientX == 'number' ? e.clientX : e.touches[0].clientX;
     node.dispatchEvent(
       new CustomEvent('slideStart', {
         detail: { x }
@@ -16,7 +16,10 @@ export function asSlider(node) {
   }
 
   function handleMousemove(e) {
-    const dx = (e.clientX || e.touches[0].clientX) - x;
+    const clientX =
+      typeof e.clientX == 'number' ? e.clientX : e.touches[0].clientX;
+
+    const dx = clientX - x;
 
     node.dispatchEvent(
       new CustomEvent('slideMove', {
@@ -26,7 +29,7 @@ export function asSlider(node) {
   }
 
   function handleMouseup(e) {
-    x = e.clientX || e.changedTouches[0].clientX;
+    x = typeof e.clientX == 'number' ? e.clientX : e.changedTouches[0].clientX;
 
     node.dispatchEvent(
       new CustomEvent('slideEnd', {

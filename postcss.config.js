@@ -3,7 +3,7 @@ const tailwindcss = require('tailwindcss');
 const autoprefixer = require('autoprefixer');
 
 const purgecssConfig = {
-  content: ['./src/index.html', './src/**/*.svelte'],
+  content: ['./src/index.html', './src/**/*.svelte', './src/**/*.js'],
   whitelist: ['flatpickr'],
   whitelistPatterns: [/svelte-/, /flatpickr/, /span/],
   whitelistPatternsChildren: [/flatpickr/],

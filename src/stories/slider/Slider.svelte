@@ -70,12 +70,12 @@
       activeSlideIndex =
         activeSlideIndex === slidesCount - 1
           ? activeSlideIndex
-          : activeSlideIndex++;
+          : activeSlideIndex + 1;
 
       setX(sliderPoints[activeSlideIndex]);
     } else if (xOnSlideStart < e.detail.x) {
       // move to previous slide
-      activeSlideIndex = activeSlideIndex === 0 ? 0 : activeSlideIndex--;
+      activeSlideIndex = activeSlideIndex === 0 ? 0 : activeSlideIndex - 1;
       setX(sliderPoints[activeSlideIndex]);
     }
   }

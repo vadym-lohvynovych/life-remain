@@ -1,15 +1,15 @@
 <script>
-  import { asFlatpickr } from '../../actions/flatpickr'
-  import { onMount } from 'svelte'
+  import { asFlatpickr } from '../../actions/flatpickr';
 
-  export let options = {}
-  export let value = null
-  export let parentClassName = ''
+  export let options = {};
+  export let value = null;
+  export let parentClass = '';
+  export let additionalClass = '';
 </script>
 
-<div class="pt-8 text-center {parentClassName}">
+<div class="pt-8 text-center {parentClass}">
   <input
-    class="field text-center rounded rounded-md block mx-auto mt-5"
+    class="field {additionalClass}"
     use:asFlatpickr={options}
     on:change
     bind:value />

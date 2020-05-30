@@ -7,6 +7,8 @@ const change = (selectedDates, dateStr, instance) => {
   birthDate.set(dateStr);
 };
 
+const additionalClass = 'text-center rounded rounded-md block mx-auto mt-5';
+
 const defaultOptions = {
   onChange: change,
   altInput: true,
@@ -22,7 +24,8 @@ export const DatePickerToggable = () => ({
   Component: Datepicker,
   props: {
     options: defaultOptions,
-    parentClassName: 'px-8',
+    additionalClass,
+    parentClass: 'px-8',
     value: birthDate.get()
   }
 });
@@ -34,6 +37,7 @@ export const DatePickerInlineStatic = () => ({
       ...defaultOptions,
       ...optionsInline
     },
+    additionalClass,
     value: birthDate.get()
   }
 });

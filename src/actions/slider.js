@@ -9,10 +9,10 @@ export function asSlider(node) {
       })
     );
 
-    window.addEventListener('mousemove', handleMousemove);
-    window.addEventListener('touchmove', handleMousemove);
-    window.addEventListener('mouseup', handleMouseup);
-    window.addEventListener('touchend', handleMouseup);
+    document.body.addEventListener('mousemove', handleMousemove);
+    document.body.addEventListener('touchmove', handleMousemove);
+    document.body.addEventListener('mouseup', handleMouseup);
+    document.body.addEventListener('touchend', handleMouseup);
   }
 
   function handleMousemove(e) {
@@ -37,10 +37,10 @@ export function asSlider(node) {
       })
     );
 
-    window.removeEventListener('mousemove', handleMousemove);
-    window.removeEventListener('touchmove', handleMousemove);
-    window.removeEventListener('mouseup', handleMouseup);
-    window.removeEventListener('touchend', handleMouseup);
+    document.body.removeEventListener('mousemove', handleMousemove);
+    document.body.removeEventListener('touchmove', handleMousemove);
+    document.body.removeEventListener('mouseup', handleMouseup);
+    document.body.removeEventListener('touchend', handleMouseup);
   }
 
   node.addEventListener('mousedown', handleMousedown);

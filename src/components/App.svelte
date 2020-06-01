@@ -1,7 +1,31 @@
 <script>
-  export let name = 'Svelte'
+  import Header from './Header';
+  import Slider from './Slider';
+  import TestSlide from './TestSlide';
+  import Footer from './Footer';
 </script>
 
-<h1 class="text-red-500 text-5xl text-center font-hairline py-8">
-  Hello, it's me, {name}!
-</h1>
+<style>
+
+</style>
+
+<div class="container mx-auto p-3 sm:py-4">
+  <Header />
+</div>
+<main>
+  <div class="lg:hidden py-8">
+    <Slider>
+      {#each [1, 2, 3] as number (number)}
+        <TestSlide {number} />
+      {/each}
+    </Slider>
+  </div>
+  <div class="hidden lg:flex items-center justify-around py-8">
+    {#each [1, 2, 3] as number (number)}
+      <TestSlide {number} />
+    {/each}
+  </div>
+</main>
+<div class="container mx-auto p-3 sm:py-4">
+  <Footer />
+</div>

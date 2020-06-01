@@ -2,12 +2,19 @@
 @tailwind components;
 
 .field {
-  @apply block py-1 px-5 rounded-md border-2 border-gray-400 outline-none transition-all duration-200;
+  @apply block py-1 px-5 rounded-lg outline-none transition-all duration-200;
 }
 
 @tailwind utilities;
 
 @import './grid.css';
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 
 button,
 input,

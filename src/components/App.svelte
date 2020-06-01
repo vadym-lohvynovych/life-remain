@@ -20,7 +20,7 @@
       {/each}
     </Slider>
   </div>
-  <div class="hidden lg:flex items-center justify-around py-8">
+  <div class="hidden lg:flex items-center py-8">
     {#each [1, 2, 3] as number (number)}
       <TestSlide {number} />
     {/each}

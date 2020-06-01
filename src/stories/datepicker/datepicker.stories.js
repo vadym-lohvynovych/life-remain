@@ -1,6 +1,7 @@
-import Datepicker from './Datepicker.svelte';
+import Datepicker from '../../components/Datepicker.svelte';
 
 export default { title: 'Date Picker' };
+
 import { birthDate } from '../../stores/birthDate';
 
 const change = (selectedDates, dateStr, instance) => {
@@ -37,6 +38,7 @@ export const DatePickerInlineStatic = () => ({
       ...defaultOptions,
       ...optionsInline
     },
+    parentClass: 'text-center',
     additionalClass,
     value: birthDate.get()
   }

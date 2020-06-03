@@ -17,7 +17,7 @@
   }
 </style>
 
-<div class="{parentClass} ">
+<div class={parentClass}>
   <input
     class="field {additionalClass}"
     use:asFlatpickr={options}

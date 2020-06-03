@@ -1,11 +1,11 @@
 <script>
   import { onMount } from 'svelte';
   import { spring } from 'svelte/motion';
-  import { asSlider } from '../../actions/slider';
+  import { asSlider } from '../actions/slider';
 
   const x = spring(0, {
-    stiffness: 0.06,
-    damping: 0.3
+    stiffness: 0.07,
+    damping: 0.35
   });
 
   let slider;
@@ -13,7 +13,7 @@
   let slidesCount;
   let xOnSlideStart;
   let sliderPoints;
-  let activeSlideIndex = 1;
+  let activeSlideIndex = 0;
   // to calculate x on slidemove
   let currentTranslateX = 0;
 
@@ -32,7 +32,7 @@
 
     setX(sliderPoints[activeSlideIndex]);
 
-    sliderContent.children.forEach(child => {
+    Array.from(sliderContent.children).forEach(child => {
       child.style.width = 100 / slidesCount + '%';
     });
   });
@@ -84,7 +84,7 @@
 <style>
   .slider {
     width: 100%;
-    overflow: hidden;
+    overflow-x: hidden;
   }
   .slider-content {
     user-select: none;
@@ -93,7 +93,7 @@
 
 <div class="slider" bind:this={slider}>
   <div
-    class="slider-content cursor-pointer flex py-5"
+    class="slider-content cursor-pointer flex"
     bind:this={sliderContent}
     use:asSlider
     on:slideStart={slideStart}

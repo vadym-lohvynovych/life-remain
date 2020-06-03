@@ -13,7 +13,7 @@
   let slidesCount;
   let xOnSlideStart;
   let sliderPoints;
-  let activeSlideIndex = 1;
+  let activeSlideIndex = 0;
   // to calculate x on slidemove
   let currentTranslateX = 0;
 

@@ -25,15 +25,15 @@
         const eased = circInOut(t);
 
         return `
-          left: ${left * (1 - eased)}px;
-          top: ${top * (1 - eased)}px;
-          right: ${(window.innerWidth - right) * (1 - eased)}px;
-          bottom: ${window.innerHeight - bottom * (1 - eased)}px;
+          left: ${left * (1 - t)}px;
+          top: ${top * (1 - t)}px;
+          right: ${(window.innerWidth - right) * (1 - t)}px;
+          bottom: ${window.innerHeight - bottom * (1 - t)}px;
           min-width: ${width}px;
           min-height: ${height}px;
-          height: ${100 * eased}vh;
-          opacity: ${t};
-          border-radius: ${10 * (1 - eased)}px;          
+          height: ${100 * t}vh;
+          opacity: ${1};
+          border-radius: ${10 * (1 - t)}px;          
           `;
       }
     };
@@ -49,10 +49,14 @@
   }
 </script>
 
+<style>
+  .expandable {
+    transform: translateZ(0);
+  }
+</style>
+
 <div class="inline-block" bind:this={parentRef}>
-  <svelte:component
-    this={preview}
-    showFullScreenComponent={() => (isExpanded = true)} />
+  <svelte:component this={preview} {showFullScreenComponent} />
 
   {#if isExpanded}
     <div

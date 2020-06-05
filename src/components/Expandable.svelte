@@ -1,6 +1,6 @@
 <script>
   import { onMount } from 'svelte';
-  import { circInOut } from 'svelte/easing';
+  import { circIn } from 'svelte/easing';
 
   export let preview = null;
   export let fullScreenComponent = null;
@@ -22,19 +22,14 @@
     return {
       duration,
       css: t => {
-        const eased = circInOut(t);
+        const eased = circIn(t);
 
         return `
-          left: ${left * (1 - t)}px;
-          top: ${top * (1 - t)}px;
-          right: ${(window.innerWidth - right) * (1 - t)}px;
-          bottom: ${window.innerHeight - bottom * (1 - t)}px;
-          min-width: ${width}px;
-          min-height: ${height}px;
-          height: ${100 * t}vh;
-          opacity: ${1};
-          border-radius: ${10 * (1 - t)}px;          
-          `;
+          transform-origin: ${left + width / 2}px ${top + height / 2}px;
+          transform: scaleX(${Math.min(eased * 3, 1)}) scaleY(${eased});
+          opacity: ${t};
+          border-radius: ${30 * (1 - eased)}px;
+        `;
       }
     };
   }
@@ -60,7 +55,7 @@
 
   {#if isExpanded}
     <div
-      in:animate={{ parent: parentRef }}
+      in:animate={{ parent: parentRef, duration: 600 }}
       out:animate={{ parent: parentRef, duration: 400 }}
       on:introend={() => (isFullVisible = true)}
       class="expandable fixed overflow-hidden opacity-100 inset-0">

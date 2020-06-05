@@ -9,19 +9,19 @@
   let isExpanded = false;
   let isFullVisible = false;
 
-  function animate(node, { duration = 600, parent }) {
+  function animate(node, { duration = 500, parent }) {
     const { top, left, height, width } = parent.getBoundingClientRect();
 
     return {
       duration,
       css: t => {
-        const eased = circIn(t);
+        const circ = circIn(t);
 
         return `
           transform-origin: ${left + width / 2}px ${top + height / 2}px;
-          transform: scaleX(${Math.min(eased * 3, 1)}) scaleY(${eased});
+          transform: scaleX(${Math.min(circ * 3, 1)}) scaleY(${circ});
           opacity: ${t};
-          border-radius: ${30 * (1 - eased)}px;
+          border-radius: ${30 * (1 - circ)}px;
         `;
       }
     };
@@ -48,7 +48,7 @@
 
   {#if isExpanded}
     <div
-      in:animate={{ parent: parentRef, duration: 600 }}
+      in:animate={{ parent: parentRef }}
       out:animate={{ parent: parentRef, duration: 400 }}
       on:introend={() => (isFullVisible = true)}
       class="expandable fixed overflow-hidden opacity-100 inset-0">

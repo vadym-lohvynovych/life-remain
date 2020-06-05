@@ -2,8 +2,23 @@
   import { onMount, onDestroy } from 'svelte';
   import { fade, fly } from 'svelte/transition';
 
-  export let hideFullScreenComponent;
+  export let hideFullScreenComponent = () => {
+    console.warn('You should specify "hideFullScreenComponent"');
+  };
   export let isFullVisible = false;
+
+  function closeOnEsc(e) {
+    if (e.which === 27) {
+      hideFullScreenComponent();
+    }
+  }
+  onMount(() => {
+    document.body.addEventListener('keydown', closeOnEsc);
+  });
+
+  onDestroy(() => {
+    document.body.removeEventListener('keydown', closeOnEsc);
+  });
 </script>
 
 <div class="h-full bg-indigo-200 shadow-outline py-5 px-12">

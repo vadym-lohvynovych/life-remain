@@ -9,7 +9,7 @@
   let isExpanded = false;
   let isFullVisible = false;
 
-  function animate(node, { duration = 500, parent }) {
+  function animate(node, { duration = 600, parent }) {
     const {
       bottom,
       top,

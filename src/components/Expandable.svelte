@@ -10,14 +10,7 @@
   let isFullVisible = false;
 
   function animate(node, { duration = 600, parent }) {
-    const {
-      bottom,
-      top,
-      right,
-      left,
-      height,
-      width
-    } = parent.getBoundingClientRect();
+    const { top, left, height, width } = parent.getBoundingClientRect();
 
     return {
       duration,

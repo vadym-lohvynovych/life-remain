@@ -1,6 +1,6 @@
 <script>
   import { onMount } from 'svelte';
-  import { circIn } from 'svelte/easing';
+  import { expandableAnimation } from '../helpers/helpers';
 
   export let preview = null;
   export let fullScreenComponent = null;
@@ -8,24 +8,6 @@
   let parentRef = null;
   let isExpanded = false;
   let isFullVisible = false;
-
-  function animate(node, { duration = 500, parent }) {
-    const { top, left, height, width } = parent.getBoundingClientRect();
-
-    return {
-      duration,
-      css: t => {
-        const circ = circIn(t);
-
-        return `
-          transform-origin: ${left + width / 2}px ${top + height / 2}px;
-          transform: scaleX(${Math.min(circ * 3, 1)}) scaleY(${circ});
-          opacity: ${t};
-          border-radius: ${30 * (1 - circ)}px;
-        `;
-      }
-    };
-  }
 
   function showFullScreenComponent() {
     isExpanded = true;
@@ -48,8 +30,8 @@
 
   {#if isExpanded}
     <div
-      in:animate={{ parent: parentRef }}
-      out:animate={{ parent: parentRef, duration: 400 }}
+      in:expandableAnimation={{ parent: parentRef }}
+      out:expandableAnimation={{ parent: parentRef, duration: 400 }}
       on:introend={() => (isFullVisible = true)}
       class="expandable fixed overflow-hidden opacity-100 inset-0">
       <svelte:component

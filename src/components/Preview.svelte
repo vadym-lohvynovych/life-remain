@@ -1,8 +1,9 @@
 <script>
   import { onMount, onDestroy } from 'svelte';
   import { fade } from 'svelte/transition';
-  import { circIn } from 'svelte/easing';
-  import svg from '../images/left-arrow-black.svg';
+  import { expandAnimation } from '../helpers/helpers';
+
+  import svg from '../images/arrow-black.svg';
 
   export let preview = null;
   export let lessThan = 0;
@@ -12,46 +13,6 @@
   let isFullVisible = false;
   let showPreview = false;
   let timeout = null;
-
-  function expand(node, { duration = 400, parent }) {
-    const {
-      top,
-      right,
-      left,
-      bottom,
-      height,
-      width
-    } = parent.getBoundingClientRect();
-
-    return {
-      duration,
-      css: t => {
-        const circ = circIn(t);
-
-        const windowWidth = window.visualViewport
-          ? window.visualViewport.width
-          : window.innerWidth;
-
-        const absoluteRight = windowWidth - right;
-        const absoluteBottom = window.innerHeight - bottom;
-
-        const coef = 3.5; // how fast sides of block will touch sides of screen
-
-        let fastLeft = left - left * circ * coef;
-        let fastRight = absoluteRight - absoluteRight * circ * coef;
-
-        return `
-          top: ${top - top * circ}px;
-          left: ${fastLeft < 0 ? 0 : fastLeft}px;
-          right: ${fastRight < 0 ? 0 : fastRight}px;
-          bottom: ${absoluteBottom - absoluteBottom * circ}px;
-          transform-origin: ${left + width / 2}px ${top + height / 2}px;
-          opacity: ${t};
-          border-radius: ${20 * (1 - circ)}px;
-        `;
-      }
-    };
-  }
 
   onMount(() => {
     document.body.addEventListener('keydown', closeOnEsc);
@@ -119,8 +80,8 @@
     {/if}
     {#if isExpanded}
       <div
-        in:expand={{ parent: parentRef }}
-        out:expand={{ parent: parentRef }}
+        in:expandAnimation={{ parent: parentRef }}
+        out:expandAnimation={{ parent: parentRef }}
         on:introend={() => (isFullVisible = true)}
         class="full-content-wrapper fixed inset-0 flex flex-col items-center
         justify-center overflow-hidden bg-gray-300">

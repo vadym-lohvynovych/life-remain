@@ -1,6 +1,6 @@
 <script>
   import { onMount } from 'svelte';
-  import { circIn } from 'svelte/easing';
+  import { expandAnimation } from '../helpers/helpers';
 
   export let preview = null;
   export let fullScreenComponent = null;
@@ -17,46 +17,6 @@
     isFullVisible = false;
     setTimeout(() => (isExpanded = false));
   }
-
-  function expand(node, { duration = 400, parent }) {
-    const {
-      top,
-      right,
-      left,
-      bottom,
-      height,
-      width
-    } = parent.getBoundingClientRect();
-
-    return {
-      duration,
-      css: t => {
-        const circ = circIn(t);
-
-        const windowWidth = window.visualViewport
-          ? window.visualViewport.width
-          : window.innerWidth;
-
-        const absoluteRight = windowWidth - right;
-        const absoluteBottom = windowWidth - bottom;
-
-        const coef = 3.5; // how fast sides of block will touch sides of screen
-
-        let finalLeft = left - left * circ * coef;
-        let finalRight = absoluteRight - absoluteRight * circ * coef;
-
-        return `
-          top: ${top - top * circ}px;
-          left: ${finalLeft < 0 ? 0 : finalLeft}px;
-          right: ${finalRight < 0 ? 0 : finalRight}px;
-          bottom: ${absoluteBottom - absoluteBottom * circ}px;
-          transform-origin: ${left + width / 2}px ${top + height / 2}px;
-          opacity: ${t};
-          border-radius: ${20 * (1 - circ)}px;
-        `;
-      }
-    };
-  }
 </script>
 
 <style>
@@ -66,14 +26,16 @@
 </style>
 
 <div class="inline-block" bind:this={parentRef}>
-  <svelte:component this={preview} {showFullScreenComponent} />
+  <div class:opacity-0={isExpanded} class="duration-500">
+    <svelte:component this={preview} {showFullScreenComponent} />
+  </div>
 
   {#if isExpanded}
     <div
-      in:expand={{ parent: parentRef }}
-      out:expand={{ parent: parentRef, duration: 400 }}
+      in:expandAnimation={{ parent: parentRef }}
+      out:expandAnimation={{ parent: parentRef }}
       on:introend={() => (isFullVisible = true)}
-      class="expandable fixed overflow-hidden opacity-100 inset-0">
+      class="expandable fixed overflow-hidden opacity-100 inset-0 opacity-0">
       <svelte:component
         this={fullScreenComponent}
         {isFullVisible}

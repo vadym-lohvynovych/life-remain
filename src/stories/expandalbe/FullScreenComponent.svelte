@@ -1,7 +1,7 @@
 <script>
   import { onMount, onDestroy } from 'svelte';
   import { fade, fly } from 'svelte/transition';
-  import arrow from '../../images/left-arrow-black.svg';
+  import arrow from '../../images/arrow-black.svg';
 
   export let hideFullScreenComponent = () => {
     console.warn('You should specify "hideFullScreenComponent"');
@@ -29,7 +29,7 @@
   }
 </style>
 
-<div class="h-full bg-indigo-200 shadow-outline py-5 px-12">
+<div class="h-full bg-indigo-200 shadow-outline p-5">
   {#if isFullVisible}
     <div class="text-left" on:click={hideFullScreenComponent}>
       <button in:fade={{ duration: 200 }} class="w-10 h-10 p-2 cursor-pointer">

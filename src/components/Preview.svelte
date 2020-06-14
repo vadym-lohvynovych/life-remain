@@ -11,6 +11,7 @@
   let isExpanded = false;
   let isFullVisible = false;
   let showPreview = false;
+  let timeout = null;
 
   function expand(node, { duration = 400, parent }) {
     const {
@@ -50,6 +51,7 @@
 
   onMount(() => {
     document.body.addEventListener('keydown', closeOnEsc);
+    window.addEventListener('resize', calculatePreviewVisibility);
 
     if (lessThan < parentRef.clientWidth) {
       showPreview = true;
@@ -71,8 +73,21 @@
     }
   }
 
+  function calculatePreviewVisibility() {
+    clearTimeout(timeout);
+    showPreview = false;
+    timeout = setTimeout(() => {
+      if (lessThan < parentRef.clientWidth) {
+        showPreview = true;
+      } else {
+        showPreview = false;
+      }
+    }, 100);
+  }
+
   onDestroy(() => {
     document.body.removeEventListener('keydown', closeOnEsc);
+    window.removeEventListener('resize', calculatePreviewVisibility);
   });
 </script>
 
@@ -105,7 +120,7 @@
         in:expand={{ parent: parentRef }}
         out:expand={{ parent: parentRef }}
         on:introend={() => (isFullVisible = true)}
-        class="full-content-wrapper absolute inset-0 flex flex-col items-center
+        class="full-content-wrapper fixed inset-0 flex flex-col items-center
         justify-center overflow-hidden bg-gray-300">
         {#if isFullVisible}
           <button

@@ -28,8 +28,12 @@
       css: t => {
         const circ = circIn(t);
 
-        const absoluteRight = window.innerWidth - right;
-        const absoluteBottom = window.innerHeight - bottom;
+        const windowWidth = window.visualViewport
+          ? window.visualViewport.width
+          : window.innerWidth;
+
+        const absoluteRight = windowWidth - right;
+        const absoluteBottom = windowWidth - bottom;
 
         const coef = 3.5; // how fast sides of block will touch sides of screen
 
@@ -53,9 +57,7 @@
     document.body.addEventListener('keydown', closeOnEsc);
     window.addEventListener('resize', calculatePreviewVisibility);
 
-    if (lessThan < parentRef.clientWidth) {
-      showPreview = true;
-    }
+    calculatePreviewVisibility();
   });
 
   function showFullScreenComponent() {
@@ -82,7 +84,7 @@
       } else {
         showPreview = false;
       }
-    }, 100);
+    }, 20);
   }
 
   onDestroy(() => {

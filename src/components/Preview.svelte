@@ -33,12 +33,12 @@
           : window.innerWidth;
 
         const absoluteRight = windowWidth - right;
-        const absoluteBottom = windowWidth - bottom;
+        const absoluteBottom = window.innerHeight - bottom;
 
         const coef = 3.5; // how fast sides of block will touch sides of screen
 
-        let finalLeft = left - left * circ * coef;
-        let finalRight = absoluteRight - absoluteRight * circ * coef;
+        let fastLeft = left - left * circ * coef;
+        let fastRight = absoluteRight - absoluteRight * circ * coef;
 
         return `
           top: ${top - top * circ}px;

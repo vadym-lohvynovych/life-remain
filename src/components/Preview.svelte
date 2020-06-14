@@ -42,8 +42,8 @@
 
         return `
           top: ${top - top * circ}px;
-          left: ${finalLeft < 0 ? 0 : finalLeft}px;
-          right: ${finalRight < 0 ? 0 : finalRight}px;
+          left: ${fastLeft < 0 ? 0 : fastLeft}px;
+          right: ${fastRight < 0 ? 0 : fastRight}px;
           bottom: ${absoluteBottom - absoluteBottom * circ}px;
           transform-origin: ${left + width / 2}px ${top + height / 2}px;
           opacity: ${t};

@@ -1,17 +1,12 @@
 import { getLifeCount } from './calculations';
 
-const age = 25;
-
-test('life counts returns 90 yeart without maxAge parameter', () => {
-  expect(getLifeCount(new Date()).years).toBe(90);
-});
-
-test('life counts returns 1080 months without maxAge parameter', () => {
-  expect(getLifeCount(new Date()).months).toBe(1080);
-});
-
-test('life count returns 4696 weeks without maxAge parameter', () => {
-  expect(getLifeCount(new Date()).weeks).toBe(4696);
+test('life count with current date returns correct years, months, weeks and lived values', () => {
+  expect(getLifeCount(new Date())).toMatchObject({
+    years: 90,
+    months: 1080,
+    weeks: 4696,
+    lived: 0
+  });
 });
 
 test("life count throwing TypeError if first parameter isn't date object", () => {

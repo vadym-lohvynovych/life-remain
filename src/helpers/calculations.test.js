@@ -1,24 +1,23 @@
 import { getLifeCount } from './calculations';
 
 const age = 25;
-const ageDate = new Date(Date.now - age * 1000 * 3600 * 24 * 365.25);
 const ageMonths = age * 12;
 const ageWeeks = Math.floor((age * 365.25) / 7);
 
 test('life count with current date returns correct years, months, weeks and lived values', () => {
   expect(getLifeCount(new Date())).toMatchObject({
-    years: 90,
-    months: 1080,
-    weeks: 4696,
+    totalYears: 90,
+    totalMonths: 1080,
+    totalWeeks: 4696,
     lived: 0
   });
 });
 
-test('life count returns correct object with 25 years date', () => {
-  expect(getLifeCount(ageDate, age)).toMatchObject({
-    years: age,
-    months: ageMonths,
-    weeks: ageWeeks
+test('life count returns correct object with 25 years max date', () => {
+  expect(getLifeCount(new Date(), age)).toMatchObject({
+    totalYears: age,
+    totalMonths: ageMonths,
+    totalWeeks: ageWeeks
   });
 });
 

@@ -12,13 +12,22 @@ export function getLifeCount(date, maxAge = 90) {
     throw new Error('Seems like you have a time machine');
   }
 
-  const weeks = Math.floor(lifeMiliseconds / (toDays * 7));
-  const months = Math.floor(lifeMiliseconds / (toDays * (365.25 / 12)));
+  const totalWeeks = Math.floor(lifeMiliseconds / (toDays * 7));
+  const totalMonths = Math.floor(lifeMiliseconds / (toDays * (365.25 / 12)));
+
+  const livedYears = (maxAge / 100) * lived;
+  const monthsRemindPercent = (livedYears % 1) * 100;
+  const livedMonths = (12 / 100) * monthsRemindPercent;
+  const daysRemindPercent = (livedMonths % 1) * 100;
+  const livedDays = (29.4167 / 100) * daysRemindPercent;
 
   return {
-    years: maxAge,
-    months,
-    weeks,
-    lived
+    totalYears: maxAge,
+    totalMonths,
+    totalWeeks,
+    lived,
+    stringValue: `${Math.floor(livedYears)} years, ${Math.floor(
+      livedMonths
+    )} months, ${Math.floor(livedDays)} days.`
   };
 }

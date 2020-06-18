@@ -44,3 +44,9 @@ test('life count throwing Error if date age is bigger than max age', () => {
     getLifeCount(new Date('1995'), 20);
   }).toThrowError();
 });
+
+test('life count throwing Error with invalid date', () => {
+  expect(() => {
+    getLifeCount(new Date('bad'));
+  }).toThrowError();
+});

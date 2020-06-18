@@ -1,8 +1,10 @@
 import { formatDuration, add, isAfter } from 'date-fns';
 
 export function getLifeCount(date, maxAge = 90) {
-  if (!(date instanceof Date)) {
-    throw new TypeError('You should specify a date object in first parameter');
+  if (!(date instanceof Date) || isNaN(date)) {
+    throw new TypeError(
+      'You should specify correct date object in first parameter'
+    );
   } else if (
     isAfter(date, new Date()) ||
     isAfter(add(new Date(), { years: -maxAge }), date)

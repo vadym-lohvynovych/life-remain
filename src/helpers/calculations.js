@@ -1,9 +1,12 @@
-import { formatDuration, isAfter } from 'date-fns';
+import { formatDuration, add, isAfter } from 'date-fns';
 
 export function getLifeCount(date, maxAge = 90) {
   if (!(date instanceof Date)) {
     throw new TypeError('You should specify a date object in first parameter');
-  } else if (isAfter(date, new Date())) {
+  } else if (
+    isAfter(date, new Date()) ||
+    isAfter(add(new Date(), { years: -maxAge }), date)
+  ) {
     throw new Error('Seems like you have a time machine');
   }
 
@@ -25,7 +28,7 @@ export function getLifeCount(date, maxAge = 90) {
     months: [Math.floor(ageValues.months), Math.floor(lifeValues.months)],
     weeks: [Math.floor(ageValues.weeks), Math.floor(lifeValues.weeks)],
     days: [Math.floor(ageValues.days), Math.floor(lifeValues.days)],
-    percent: (ageValues.days / lifeValues.days) * 100,
+    percent: (Math.floor(ageValues.days) / Math.floor(lifeValues.days)) * 100,
     remain: formatDuration(remainedDuration, { delimiter: ', ' }),
     lived: formatDuration(livedDuration, { delimiter: ', ' })
   };
@@ -49,14 +52,14 @@ function getDuration(years, months) {
 }
 
 function parseTime(time) {
-  const toDaysCoef = 1000 * 3600 * 24;
-  const toWeeksCoef = toDaysCoef * 7;
-  const toMonthsCoef = toDaysCoef * (365.25 / 12);
+  const daysCoef = 1000 * 3600 * 24;
+  const weeksCoef = daysCoef * 7;
+  const monthsCoef = daysCoef * (365.25 / 12);
 
   return {
-    days: time / toDaysCoef,
-    weeks: time / toWeeksCoef,
-    months: time / toMonthsCoef,
-    years: time / (365.25 * toDaysCoef)
+    days: time / daysCoef,
+    weeks: time / weeksCoef,
+    months: time / monthsCoef,
+    years: time / (365.25 * daysCoef)
   };
 }

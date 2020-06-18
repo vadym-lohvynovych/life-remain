@@ -9,7 +9,6 @@ export function getLifeCount(date, maxAge = 90) {
 
   const ageMiliseconds = Date.now() - date.getTime();
   const lifeMiliseconds = maxAge * 365.25 * 1000 * 3600 * 24 + 1000 * 3600 * 24;
-  const percent = (ageMiliseconds / lifeMiliseconds) * 100;
 
   const ageValues = parseTime(ageMiliseconds);
   const lifeValues = parseTime(lifeMiliseconds);
@@ -26,7 +25,7 @@ export function getLifeCount(date, maxAge = 90) {
     months: [Math.floor(ageValues.months), Math.floor(lifeValues.months)],
     weeks: [Math.floor(ageValues.weeks), Math.floor(lifeValues.weeks)],
     days: [Math.floor(ageValues.days), Math.floor(lifeValues.days)],
-    percent,
+    percent: (ageValues.days / lifeValues.days) * 100,
     remain: formatDuration(remainedDuration, { delimiter: ', ' }),
     lived: formatDuration(livedDuration, { delimiter: ', ' })
   };

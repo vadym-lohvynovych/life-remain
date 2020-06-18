@@ -1,33 +1,63 @@
+import { formatDuration, isAfter } from 'date-fns';
+
 export function getLifeCount(date, maxAge = 90) {
-  if (!(date instanceof Date))
+  if (!(date instanceof Date)) {
     throw new TypeError('You should specify a date object in first parameter');
-
-  const toDays = 1000 * 3600 * 24;
-
-  const ageMiliseconds = Date.now() - date.getTime();
-  const lifeMiliseconds = maxAge * 365.25 * toDays;
-  const lived = (ageMiliseconds / lifeMiliseconds) * 100;
-
-  if (lived < 0) {
+  } else if (isAfter(date, new Date())) {
     throw new Error('Seems like you have a time machine');
   }
 
-  const totalWeeks = Math.floor(lifeMiliseconds / (toDays * 7));
-  const totalMonths = Math.floor(lifeMiliseconds / (toDays * (365.25 / 12)));
+  const ageMiliseconds = Date.now() - date.getTime();
+  const lifeMiliseconds = maxAge * 365.25 * 1000 * 3600 * 24 + 1000 * 3600 * 24;
+  const percent = (ageMiliseconds / lifeMiliseconds) * 100;
 
-  const livedYears = (maxAge / 100) * lived;
-  const monthsRemindPercent = (livedYears % 1) * 100;
-  const livedMonths = (12 / 100) * monthsRemindPercent;
-  const daysRemindPercent = (livedMonths % 1) * 100;
-  const livedDays = (29.4167 / 100) * daysRemindPercent;
+  const ageValues = parseTime(ageMiliseconds);
+  const lifeValues = parseTime(lifeMiliseconds);
+
+  const remainedDuration = getDuration(
+    lifeValues.years - ageValues.years,
+    lifeValues.months - ageValues.months
+  );
+
+  const livedDuration = getDuration(ageValues.years, ageValues.months);
 
   return {
-    totalYears: maxAge,
-    totalMonths,
-    totalWeeks,
-    lived,
-    stringValue: `${Math.floor(livedYears)} years, ${Math.floor(
-      livedMonths
-    )} months, ${Math.floor(livedDays)} days.`
+    years: [Math.floor(ageValues.years), Math.floor(lifeValues.years)],
+    months: [Math.floor(ageValues.months), Math.floor(lifeValues.months)],
+    weeks: [Math.floor(ageValues.weeks), Math.floor(lifeValues.weeks)],
+    days: [Math.floor(ageValues.days), Math.floor(lifeValues.days)],
+    percent,
+    remain: formatDuration(remainedDuration, { delimiter: ', ' }),
+    lived: formatDuration(livedDuration, { delimiter: ', ' })
+  };
+}
+
+function getDuration(years, months) {
+  const now = new Date();
+  const daysInMonth =
+    32 - new Date(now.getFullYear(), now.getMonth(), 32).getDate();
+
+  const monthsDuration = (12 / 100) * (years % 1) * 100;
+  const daysDuration = (daysInMonth / 100) * (months % 1) * 100;
+  const weeksDuration = daysDuration > 7 ? daysDuration / 7 : 0;
+
+  return {
+    years: Math.floor(years),
+    months: Math.floor(monthsDuration),
+    weeks: Math.floor(weeksDuration),
+    days: Math.floor(weeksDuration) ? 0 : Math.floor(daysDuration)
+  };
+}
+
+function parseTime(time) {
+  const toDaysCoef = 1000 * 3600 * 24;
+  const toWeeksCoef = toDaysCoef * 7;
+  const toMonthsCoef = toDaysCoef * (365.25 / 12);
+
+  return {
+    days: time / toDaysCoef,
+    weeks: time / toWeeksCoef,
+    months: time / toMonthsCoef,
+    years: time / (365.25 * toDaysCoef)
   };
 }

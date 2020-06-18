@@ -1,43 +1,37 @@
 import { getLifeCount } from './calculations';
+import { add } from 'date-fns';
 
-const age = 25;
-const ageMonths = age * 12;
-const ageWeeks = Math.floor((age * 365.25) / 7);
+const date25years = add(new Date(), { years: -25 });
 
-test('life count with current date returns correct years, months, weeks and lived values', () => {
-  expect(getLifeCount(new Date())).toMatchObject({
-    totalYears: 90,
-    totalMonths: 1080,
-    totalWeeks: 4696,
-    lived: 0
+date25years.setHours(0, 0, 0, 0);
+
+test('life count with current date returns correct years, months, weeks, days and percent values', () => {
+  expect(getLifeCount(new Date(), 90)).toMatchObject({
+    years: [0, 90],
+    months: [0, 1080],
+    weeks: [0, 4696],
+    days: [0, 32873],
+    percent: 0
   });
 });
 
-test('life count returns correct object with 25 years max date', () => {
-  expect(getLifeCount(new Date(), age)).toMatchObject({
-    totalYears: age,
-    totalMonths: ageMonths,
-    totalWeeks: ageWeeks
+test('life count returns correct years, months, weeks and days with 25 years date', () => {
+  expect(getLifeCount(date25years, 90)).toMatchObject({
+    years: [25, 90],
+    months: [300, 1080],
+    weeks: [1304, 4696],
+    days: [9132, 32873]
   });
 });
 
 test("life count throwing TypeError if first parameter isn't date object", () => {
-  let error = null;
-  try {
+  expect(() => {
     getLifeCount({});
-  } catch (e) {
-    error = e;
-  }
-  expect(error instanceof TypeError).toBe(true);
+  }).toThrowError();
 });
 
 test('life count throwing Error if date is in the future', () => {
-  let error = null;
-  try {
+  expect(() => {
     getLifeCount(new Date(Date.now() + 1));
-  } catch (e) {
-    error = e;
-  }
-  expect(error instanceof Error).toBe(true);
-  // expect(getLifeCount(new Date(Date.now() + 1))).toThrowError();
+  }).toThrowError();
 });

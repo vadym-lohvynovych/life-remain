@@ -3,8 +3,6 @@ import { add } from 'date-fns';
 
 const date25years = add(new Date(), { years: -25 });
 
-date25years.setHours(0, 0, 0, 0);
-
 test('life count with current date returns correct years, months, weeks, days and percent values', () => {
   expect(getLifeCount(new Date(), 90)).toMatchObject({
     years: [0, 90],

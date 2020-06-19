@@ -1,17 +1,19 @@
 import { getLifeCount } from './calculations';
-import { add } from 'date-fns';
+import { sub } from 'date-fns';
 
-const date25years = add(new Date(), { years: -25 });
+const now = new Date();
+const date25years = sub(now, { years: 25 });
+const customDate = sub(now, { years: 42, months: 3, days: 7 });
 
 test('life count with current date returns correct object', () => {
-  expect(getLifeCount(new Date(), 90)).toMatchObject({
+  expect(getLifeCount(now, 90)).toMatchObject({
     years: [0, 90],
     months: [0, 1080],
-    weeks: [0, 4696],
-    days: [0, 32873],
+    weeks: [0, 4695],
+    days: [0, 32871],
     percent: 0,
     remain: '90 years',
-    lived: ''
+    passed: ''
   });
 });
 
@@ -21,9 +23,21 @@ test('life count returns correct object with 25 years date', () => {
     months: [300, 1080],
     weeks: [1304, 4696],
     days: [9132, 32873],
-    percent: (9132 / 32873) * 100,
+    percent: 27.78,
     remain: '65 years',
-    lived: '25 years'
+    passed: '25 years'
+  });
+});
+
+test('life count returns correct object for custom date', () => {
+  expect(getLifeCount(customDate, 90)).toMatchObject({
+    years: [42, 90],
+    months: [507, 1080],
+    weeks: [2205, 4696],
+    days: [15440, 32873],
+    percent: 46.97,
+    remain: '47 years, 8 months, 22 days',
+    passed: '42 years, 3 months, 7 days'
   });
 });
 

@@ -32,7 +32,10 @@
 <div class="h-full bg-indigo-200 shadow-outline p-5">
   {#if isFullVisible}
     <div class="text-left" on:click={hideFullScreenComponent}>
-      <button in:fade={{ duration: 200 }} class="w-10 h-10 p-2 cursor-pointer">
+      <button
+        class="w-10 h-10 p-2 cursor-pointer"
+        in:fade={{ duration: 200 }}
+        out:fade={{ duration: 200 }}>
         <img src={arrow} alt="go back" />
       </button>
     </div>

@@ -15,7 +15,7 @@
 
   function hideFullScreenComponent() {
     isFullVisible = false;
-    setTimeout(() => (isExpanded = false));
+    isExpanded = false;
   }
 </script>
 
@@ -35,7 +35,7 @@
       in:expandAnimation={{ parent: parentRef }}
       out:expandAnimation={{ parent: parentRef }}
       on:introend={() => (isFullVisible = true)}
-      class="expandable fixed overflow-hidden opacity-100 inset-0 opacity-0">
+      class="expandable fixed overflow-hidden inset-0">
       <svelte:component
         this={fullScreenComponent}
         {isFullVisible}

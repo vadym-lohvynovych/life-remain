@@ -10,7 +10,7 @@
 
   switch (true) {
     case total < 100:
-      size = 40;
+      size = 38;
       break;
 
     case total < 500:
@@ -28,11 +28,9 @@
     default:
       size = 11;
   }
-
-  let el;
 </script>
 
-<div class="flex items-center flex-wrap">
+<div class="flex items-center justify-around flex-wrap">
   {#each new Array(total) as _, i}
     <svelte:component
       this={component}

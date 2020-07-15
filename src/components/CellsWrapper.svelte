@@ -6,7 +6,6 @@
   export let component = null;
 
   let size = 0;
-  let columns = 0;
 
   switch (true) {
     case total < 100:

@@ -1,53 +1,43 @@
 <script>
   import { onMount, onDestroy } from 'svelte';
+
   export let total = 0;
   export let getCellProps = null;
   export let component = null;
 
-  let columns = '';
+  let size = 0;
+  let columns = 0;
 
   switch (true) {
     case total < 100:
-      columns = 9;
+      size = 40;
       break;
 
-    case total < 200:
-      columns = 10;
+    case total < 500:
+      size = 18;
       break;
 
-    case total < 300:
-      columns = 12;
-      break;
-
-    case total < 400:
-      columns = 14;
-      break;
-
-    case total < 600:
-      columns = 18;
-      break;
-
-    case total < 800:
-      columns = 19;
+    case total < 1000:
+      size = 16;
       break;
 
     case total < 2000:
-      columns = 24;
-      break;
-
-    case total < 5000:
-      columns = 32;
+      size = 14;
       break;
 
     default:
-      columns = 36;
+      size = 11;
   }
 
-  // columns = Math.round(total / 50);
+  let el;
 </script>
 
-<div class="grid" style="grid-template-columns: repeat({columns}, 1fr)">
+<div class="flex items-center flex-wrap">
   {#each new Array(total) as _, i}
-    <svelte:component this={component} {...getCellProps(i, total)} />
+    <svelte:component
+      this={component}
+      {...getCellProps(i, total)}
+      {size}
+      {total} />
   {/each}
 </div>

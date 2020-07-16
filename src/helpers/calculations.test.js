@@ -34,9 +34,9 @@ test('life count returns correct object for custom date', () => {
     years: [42, 90],
     months: [507, 1080],
     weeks: [2205, 4696],
-    days: [15440, 32873],
+    days: [15439, 32873],
     percent: 46.97,
-    remain: '47 years, 8 months, 22 days',
+    remain: '47 years, 8 months, 24 days',
     passed: '42 years, 3 months, 7 days'
   });
 });

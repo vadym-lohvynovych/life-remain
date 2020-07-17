@@ -1,5 +1,7 @@
 <script>
+  import { getCellSize, getCellDefaultProps } from '../helpers/cell.js';
   import { fly } from 'svelte/transition';
+  import { onMount } from 'svelte';
 
   export let total = 1;
   export let color = '#c1c1c1';
@@ -11,26 +13,7 @@
   let isPopupVisible = false;
 
   if (!size) {
-    switch (true) {
-      case total < 100:
-        size = 38;
-        break;
-
-      case total < 500:
-        size = 18;
-        break;
-
-      case total < 1000:
-        size = 16;
-        break;
-
-      case total < 2000:
-        size = 14;
-        break;
-
-      default:
-        size = 11;
-    }
+    size = getCellSize(total);
   }
 </script>
 
@@ -57,11 +40,9 @@
 
 <div class="relative" style="padding: {padding}px">
   <div
-    on:mouseenter={() => (isPopupVisible = true)}
-    on:mouseleave={() => (isPopupVisible = false)}
-    style="background-color: {color}; width: {size}px; height: {size}px"
-    class="block cursor-pointer rounded transition-shadow duration-100
-    hover:shadow-outline relative {additionalClassName}">
+    on:mouseenter={popupText ? () => (isPopupVisible = true) : null}
+    on:mouseleave={popupText ? () => (isPopupVisible = false) : null}
+    {...getCellDefaultProps(color, size, additionalClassName)}>
     {#if String(popupText).trim() && isPopupVisible}
       <div
         class="popup absolute px-3 py-1 rounded bg-gray-700 text-white"

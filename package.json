@@ -37,6 +37,7 @@
     "eslint-plugin-svelte3": "^2.7.3",
     "jest": "^26.0.1",
     "parcel-bundler": "^1.12.4",
+    "parcel-plugin-bundle-visualiser": "^1.2.0",
     "parcel-plugin-svelte": "^4.0.6",
     "prettier": "^2.0.5",
     "prettier-plugin-svelte": "^1.1.0",

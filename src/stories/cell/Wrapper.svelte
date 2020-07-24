@@ -50,9 +50,8 @@
         activeButtonIndex = 0;
         cellAdditionalClass = 'mr-auto';
       }}
-      class={buttonClassName}
-      class:bg-blue-400={activeButtonIndex !== 0}
-      class:bg-red-300={activeButtonIndex === 0}>
+      class="{buttonClassName}
+      {activeButtonIndex === 0 ? 'bg-red-300' : 'bg-blue-400'}">
       Left
     </button>
     <button
@@ -60,9 +59,8 @@
         activeButtonIndex = 1;
         cellAdditionalClass = 'mx-auto';
       }}
-      class={buttonClassName}
-      class:bg-blue-400={activeButtonIndex !== 1}
-      class:bg-red-300={activeButtonIndex === 1}>
+      class="{buttonClassName}
+      {activeButtonIndex === 1 ? 'bg-red-300' : 'bg-blue-400'}">
       Center
     </button>
     <button
@@ -70,9 +68,8 @@
         activeButtonIndex = 2;
         cellAdditionalClass = 'ml-auto';
       }}
-      class={buttonClassName}
-      class:bg-blue-400={activeButtonIndex !== 2}
-      class:bg-red-300={activeButtonIndex === 2}>
+      class="{buttonClassName}
+      {activeButtonIndex === 2 ? 'bg-red-300' : 'bg-blue-400'}">
       Right
     </button>
   </div>

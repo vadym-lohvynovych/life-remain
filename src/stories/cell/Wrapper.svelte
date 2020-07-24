@@ -6,6 +6,11 @@
   let size = 50;
   let color = '#4a5568';
   let popupText = 'Popup text!';
+  let activeButtonIndex = 0;
+  let cellAdditionalClass = 'mr-auto';
+
+  const buttonClassName =
+    'px-5 py-1 mx-1 rounded duration-200 hover:bg-blue-300';
 </script>
 
 <h2 class="text-xl text-center my-2 text-gray-900 font-bold">{title}</h2>
@@ -29,7 +34,7 @@
     bind:value={popupText} />
 
   <div class="flex items-center mt-3">
-    <p>Color:</p>
+    <p class="font-bold">Color:</p>
     <input class="mx-2" type="color" bind:value={color} />
     <input
       placeholder="Color"
@@ -37,6 +42,45 @@
       type="text"
       bind:value={color} />
   </div>
+
+  <p class="mt-5 text-center font-bold">Position:</p>
+  <div class="flex items-center justify-center mt-3">
+    <button
+      on:click={() => {
+        activeButtonIndex = 0;
+        cellAdditionalClass = 'mr-auto';
+      }}
+      class={buttonClassName}
+      class:bg-blue-400={activeButtonIndex !== 0}
+      class:bg-red-300={activeButtonIndex === 0}>
+      Left
+    </button>
+    <button
+      on:click={() => {
+        activeButtonIndex = 1;
+        cellAdditionalClass = 'mx-auto';
+      }}
+      class={buttonClassName}
+      class:bg-blue-400={activeButtonIndex !== 1}
+      class:bg-red-300={activeButtonIndex === 1}>
+      Center
+    </button>
+    <button
+      on:click={() => {
+        activeButtonIndex = 2;
+        cellAdditionalClass = 'ml-auto';
+      }}
+      class={buttonClassName}
+      class:bg-blue-400={activeButtonIndex !== 2}
+      class:bg-red-300={activeButtonIndex === 2}>
+      Right
+    </button>
+  </div>
 </div>
 
-<Cell {...cellProps} {size} {color} {popupText} />
+<Cell
+  {...cellProps}
+  {size}
+  {color}
+  {popupText}
+  additionalClassName="mt-12 {cellAdditionalClass}" />

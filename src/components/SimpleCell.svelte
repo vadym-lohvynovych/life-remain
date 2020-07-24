@@ -6,7 +6,7 @@
   export let size = null;
   export let additionalClassName = '';
 
-  let padding = total < 500 ? 3 : 1;
+  const padding = total < 500 ? 3 : 1;
 
   if (!size) {
     size = getCellSize(total);

@@ -6,17 +6,13 @@ export default { title: 'Cell' };
 export const CustomizableCell = () => ({
   Component: Wrapper,
   props: {
-    title: 'Сheck it out!',
-    cellProps: {
-      additionalClassName: 'mx-auto mt-8'
-    }
+    title: 'Сheck it out!'
   }
 });
 
 export const Simple = () => ({
   Component: SimpleCell,
   props: {
-    additionalClassName: 'mx-auto mt-5',
     color: 'red'
   }
 });

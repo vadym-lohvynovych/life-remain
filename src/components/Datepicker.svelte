@@ -7,7 +7,7 @@
   export let additionalClass = '';
 </script>
 
-<style type="text/scss">
+<style>
   input {
     box-shadow: 0 0 7px #d2d2d2, 0 0 4px #c3d1ea inset;
     background: #f5fffd;

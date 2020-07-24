@@ -1,5 +1,4 @@
 import CellsWrapper from '../../components/CellsWrapper.svelte';
-import DemoCell from './DemoCell';
 
 export default { title: 'Cells Wrapper' };
 
@@ -11,14 +10,14 @@ const getCellProps = (index, total) => {
 
   return {
     index,
-    color
+    color,
+    popupText: index
   };
 };
 
 export const Total90 = () => ({
   Component: CellsWrapper,
   props: {
-    component: DemoCell,
     total: 90,
     getCellProps
   }
@@ -27,7 +26,6 @@ export const Total90 = () => ({
 export const Total1080 = () => ({
   Component: CellsWrapper,
   props: {
-    component: DemoCell,
     total: 1080,
     getCellProps
   }
@@ -36,7 +34,6 @@ export const Total1080 = () => ({
 export const Total4695 = () => ({
   Component: CellsWrapper,
   props: {
-    component: DemoCell,
     total: 4695,
     getCellProps
   }

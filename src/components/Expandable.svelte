@@ -1,6 +1,6 @@
 <script>
   import { onMount } from 'svelte';
-  import { expandAnimation } from '../helpers/helpers';
+  import { expandAnimation } from '../helpers/expandedAnimation';
 
   export let preview = null;
   export let fullScreenComponent = null;

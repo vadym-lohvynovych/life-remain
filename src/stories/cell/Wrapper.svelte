@@ -1,5 +1,6 @@
 <script>
   import Cell from '../../components/Cell.svelte';
+  import PositionButton from './PositionButton';
   export let title = '';
   export let cellProps = {};
 
@@ -7,10 +8,14 @@
   let color = '#4a5568';
   let popupText = 'Popup text!';
   let activeButtonIndex = 0;
-  let cellAdditionalClass = 'mr-auto';
 
   const buttonClassName =
-    'px-5 py-1 mx-1 rounded duration-200 hover:bg-blue-300';
+    'px-5 py-1 mx-1 rounded duration-100 hover:bg-blue-300';
+
+  const cellClassesMap = ['mr-auto', 'mx-auto', 'ml-auto'];
+  const buttonTextMap = ['left', 'center', 'right'];
+
+  let cellAdditionalClass = cellClassesMap[activeButtonIndex];
 </script>
 
 <h2 class="text-xl text-center my-2 text-gray-900 font-bold">{title}</h2>
@@ -45,33 +50,17 @@
 
   <p class="mt-5 text-center font-bold">Position:</p>
   <div class="flex items-center justify-center mt-3">
-    <button
-      on:click={() => {
-        activeButtonIndex = 0;
-        cellAdditionalClass = 'mr-auto';
-      }}
-      class="{buttonClassName}
-      {activeButtonIndex === 0 ? 'bg-red-300' : 'bg-blue-400'}">
-      Left
-    </button>
-    <button
-      on:click={() => {
-        activeButtonIndex = 1;
-        cellAdditionalClass = 'mx-auto';
-      }}
-      class="{buttonClassName}
-      {activeButtonIndex === 1 ? 'bg-red-300' : 'bg-blue-400'}">
-      Center
-    </button>
-    <button
-      on:click={() => {
-        activeButtonIndex = 2;
-        cellAdditionalClass = 'ml-auto';
-      }}
-      class="{buttonClassName}
-      {activeButtonIndex === 2 ? 'bg-red-300' : 'bg-blue-400'}">
-      Right
-    </button>
+    {#each new Array(3) as _, i}
+      <PositionButton
+        index={i}
+        text={buttonTextMap[i]}
+        {activeButtonIndex}
+        {buttonClassName}
+        onClick={() => {
+          activeButtonIndex = i;
+          cellAdditionalClass = cellClassesMap[i];
+        }} />
+    {/each}
   </div>
 </div>
 

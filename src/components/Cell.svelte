@@ -16,6 +16,8 @@
     right: 'auto',
     translateX: '-50%'
   };
+  const commonAnimationSettings = { duration: 300 };
+  const flyAnimationSettings = { ...commonAnimationSettings, y: -5 };
 
   let popupExists = false;
   let popupInset = defaultPopupInset;
@@ -92,14 +94,14 @@
         on:introstart={showPopup}
         on:outroend={hidePopup}
         class="popup absolute px-3 py-1 rounded bg-gray-700 text-white"
-        in:fade={{ duration: 300, y: 5 }}
-        out:fly={{ duration: 300, y: -5 }}>
+        in:fade={commonAnimationSettings}
+        out:fly={flyAnimationSettings}>
         <p class="whitespace-no-wrap">{popupText}</p>
       </div>
       <span
         class="popup-arrow"
-        in:fade={{ duration: 300, y: 5 }}
-        out:fly={{ duration: 300, y: -5 }} />
+        in:fade={commonAnimationSettings}
+        out:fly={flyAnimationSettings} />
     {/if}
   </div>
 </div>

@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+
+.field {
+  @apply block py-1 px-5 rounded-lg outline-none transition-all duration-200;
+}
+
+@tailwind utilities;
+
+@import './grid.css';
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow-x: hidden;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}

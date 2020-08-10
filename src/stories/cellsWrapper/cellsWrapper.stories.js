@@ -1,4 +1,5 @@
 import CellsWrapper from '../../components/CellsWrapper.svelte';
+import { getCellSize } from '../../helpers/cell';
 
 export default { title: 'Cells Wrapper' };
 
@@ -11,7 +12,9 @@ const getCellProps = (index, total) => {
   return {
     index,
     color,
-    popupText: index
+    popupText: index,
+    size: getCellSize(total),
+    gap: total < 500 ? 3 : 1
   };
 };
 

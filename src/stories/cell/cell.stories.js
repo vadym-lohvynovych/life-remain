@@ -6,7 +6,8 @@ export default { title: 'Cell' };
 export const CustomizableCell = () => ({
   Component: Wrapper,
   props: {
-    title: 'Сheck it out!'
+    title: 'Сheck it out!',
+    total: 1080
   }
 });
 

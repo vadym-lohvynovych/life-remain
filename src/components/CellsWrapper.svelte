@@ -1,6 +1,6 @@
 <script>
   import { onMount, onDestroy } from 'svelte';
-  import SimpleCell from './SimpleCell.svelte';
+  import Cell from './Cell.svelte';
 
   export let total = 0;
   export let getCellProps = null;
@@ -8,6 +8,6 @@
 
 <div class="flex items-center justify-around flex-wrap">
   {#each new Array(total) as _, i}
-    <svelte:component this={SimpleCell} {total} {...getCellProps(i, total)} />
+    <svelte:component this={Cell} {total} {...getCellProps(i, total)} />
   {/each}
 </div>

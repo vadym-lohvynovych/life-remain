@@ -1,5 +1,5 @@
 <script>
-  import Cell from '../../components/Cell.svelte';
+  import Cell from '../../components/Cell/Cell.svelte';
   import PositionButton from './PositionButton';
   import Tooltip from '../../components/Tooltip.svelte';
   export let title = '';

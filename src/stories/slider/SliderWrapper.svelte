@@ -1,5 +1,5 @@
 <script>
-  import Slider from '../../components/Slider.svelte';
+  import Slider from '../../components/Slider/Slider.svelte';
 </script>
 
 <style>

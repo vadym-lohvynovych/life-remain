@@ -3,8 +3,8 @@
 
   export let options = {};
   export let value = null;
-  export let parentClass = '';
-  export let additionalClass = '';
+  export let containerClass = '';
+  export let inputFieldClass = '';
 </script>
 
 <style>
@@ -17,9 +17,9 @@
   }
 </style>
 
-<div class={parentClass}>
+<div class={containerClass}>
   <input
-    class="field {additionalClass}"
+    class="field {inputFieldClass}"
     use:asFlatpickr={options}
     on:change
     bind:value />

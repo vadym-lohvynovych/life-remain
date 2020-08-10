@@ -6,7 +6,7 @@
 
   export let text = '';
 
-  const defaultPopupInset = {
+  const defaultTooltipInset = {
     left: '50%',
     right: 'auto',
     translateX: '-50%',
@@ -16,11 +16,11 @@
   const commonAnimationSettings = { duration: 300 };
   const flyAnimationSettings = { ...commonAnimationSettings, y: -5 };
 
-  let popupExists = false;
-  let isPopupVisible = false;
-  let popupInset = defaultPopupInset;
+  let tooltipExists = false;
+  let isTooltipVisible = false;
+  let tooltipInset = defaultTooltipInset;
   let parentRef = null;
-  let popupRef = null;
+  let tooltipRef = null;
 
   onMount(() => {
     if (parentRef.children.length > 1) {
@@ -29,18 +29,18 @@
   });
 
   function getTooltipInset() {
-    if (isPopupVisible) {
-      return popupInset;
+    if (isTooltipVisible) {
+      return tooltipInset;
     }
 
-    const { left, right } = popupRef.getBoundingClientRect();
+    const { left, right } = tooltipRef.getBoundingClientRect();
     const bottom = parentRef.children[0]
       ? parentRef.children[0].offsetHeight
       : 0;
 
     if (left < 0) {
       return {
-        ...popupInset,
+        ...tooltipInset,
         left: 0,
         translateX: 0,
         bottom
@@ -53,28 +53,28 @@
         bottom
       };
     } else {
-      return { ...defaultPopupInset, bottom };
+      return { ...defaultTooltipInset, bottom };
     }
   }
 
-  function showPopup() {
-    popupInset = getTooltipInset();
-    isPopupVisible = true;
+  function showTooltip() {
+    tooltipInset = getTooltipInset();
+    isTooltipVisible = true;
   }
 
-  function hidePopup() {
-    popupInset = defaultPopupInset;
-    isPopupVisible = false;
+  function hideTooltip() {
+    tooltipInset = defaultTooltipInset;
+    isTooltipVisible = false;
   }
 </script>
 
 <style>
-  .popup {
+  .tooltip {
     text-align: center;
     font-size: 0.7em;
     background-color: #4a5568;
   }
-  .popup-arrow {
+  .tooltip-arrow {
     display: block;
     position: absolute;
     left: 50%;
@@ -87,26 +87,28 @@
 <div
   class="inline-block relative"
   bind:this={parentRef}
-  on:mouseenter={text ? () => (popupExists = true) : null}
-  on:mouseleave={text ? () => (popupExists = false) : null}>
+  on:mouseenter={text ? () => (tooltipExists = true) : null}
+  on:mouseleave={text ? () => (tooltipExists = false) : null}>
 
   <slot />
-  {#if String(text).trim() && popupExists}
-    <div
-      class="popup absolute px-3 py-1 rounded bg-gray-700 text-white"
-      bind:this={popupRef}
-      style="left: {popupInset.left}; right: {popupInset.right}; bottom: calc({popupInset.bottom + 6}px);
-      transform: translateX({popupInset.translateX})"
-      on:introstart={showPopup}
-      on:outroend={hidePopup}
-      in:fade={commonAnimationSettings}
-      out:fly={flyAnimationSettings}>
-      <p class="whitespace-no-wrap">{text}</p>
+  {#if String(text).trim() && tooltipExists}
+    <div>
+      <div
+        class="tooltip absolute px-3 py-1 rounded bg-gray-700 text-white"
+        bind:this={tooltipRef}
+        style="left: {tooltipInset.left}; right: {tooltipInset.right}; bottom:
+        calc({tooltipInset.bottom + 2}px); transform: translateX({tooltipInset.translateX})"
+        on:introstart={showTooltip}
+        on:outroend={hideTooltip}
+        in:fade={commonAnimationSettings}
+        out:fly={flyAnimationSettings}>
+        <p class="whitespace-no-wrap">{text}</p>
+      </div>
+      <span
+        class="tooltip-arrow"
+        style="bottom: calc({tooltipInset.bottom - 4}px)"
+        in:fade={commonAnimationSettings}
+        out:fly={flyAnimationSettings} />
     </div>
-    <span
-      class="popup-arrow"
-      style="bottom: calc({popupInset.bottom}px)"
-      in:fade={commonAnimationSettings}
-      out:fly={flyAnimationSettings} />
   {/if}
 </div>

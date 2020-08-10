@@ -1,6 +1,6 @@
 <script>
   import { onMount, onDestroy } from 'svelte';
-  import Cell from '../../components/Cell/Cell.svelte';
+  import Cell from '../../src/components/Cell/Cell.svelte';
 
   export let total = 0;
   export let getCellProps = null;

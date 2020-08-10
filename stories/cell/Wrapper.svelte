@@ -1,7 +1,7 @@
 <script>
-  import Cell from '../../components/Cell/Cell.svelte';
+  import Cell from '../../src/components/Cell/Cell.svelte';
   import PositionButton from './PositionButton';
-  import Tooltip from '../../components/Tooltip.svelte';
+  import Tooltip from '../../src/components/Tooltip.svelte';
   export let title = '';
   export let cellProps = {};
   export let total = 1;

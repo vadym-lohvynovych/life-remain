@@ -1,7 +1,7 @@
 <script>
   import { onMount, onDestroy } from 'svelte';
   import { fade, fly } from 'svelte/transition';
-  import arrow from '../../../assets/images/arrow-black.svg';
+  import arrow from '../../assets/images/arrow-black.svg';
 
   export let hideFullScreenComponent = () => {
     console.warn('You should specify "hideFullScreenComponent"');

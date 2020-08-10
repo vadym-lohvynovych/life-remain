@@ -1,6 +1,6 @@
 import { addParameters } from '@storybook/svelte';
 
-import '../../assets/styles/global.css';
+import '../assets/styles/global.css';
 import 'flatpickr/dist/flatpickr.css';
 import 'flatpickr/dist/themes/light.css';
 

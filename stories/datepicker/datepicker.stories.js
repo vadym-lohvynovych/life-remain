@@ -1,5 +1,5 @@
-import Datepicker from '../../components/Datepicker.svelte';
-import { birthDate } from '../../stores/birthDate';
+import Datepicker from '../../src/components/Datepicker.svelte';
+import { birthDate } from '../../src/stores/birthDate';
 
 export default { title: 'Date Picker' };
 

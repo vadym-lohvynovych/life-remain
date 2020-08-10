@@ -1,5 +1,5 @@
 import CellsWrapper from './CellsWrapper.svelte';
-import { getCellSize } from '../../components/Cell/helpers';
+import { getCellSize } from '../../src/components/Cell/helpers';
 
 export default { title: 'Cells Wrapper' };
 

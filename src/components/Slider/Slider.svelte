@@ -43,7 +43,9 @@
 
     updateXPoints();
 
-    sliderContent.children.forEach(setWidthToElement(`${100 / slidesCount}%`));
+    Array.from(sliderContent.children).forEach(
+      setWidthToElement(`${100 / slidesCount}%`)
+    );
   }
 
   function setX(value) {

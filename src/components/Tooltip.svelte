@@ -3,6 +3,7 @@
   import { fly, fade } from 'svelte/transition';
   import { circIn } from 'svelte/easing';
   import { onMount } from 'svelte';
+  import { cond, stubTrue } from 'lodash';
 
   export let text = '';
 
@@ -50,22 +51,23 @@
     const bottom = parentRef.children[0]
       ? parentRef.children[0].offsetHeight
       : 0;
-    let newInset;
 
-    switch (true) {
-      case left < 0:
-        newInset = { ...tooltipInset, left: 0, translateX: 0, bottom };
-        break;
+    const leftLessThanZero = (left) => left < 0;
+    const rightBiggerThanWindow = (left, right) => right > window.innerWidth;
 
-      case right > window.innerWidth:
-        newInset = { right: 0, left: 'auto', translateX: 0, bottom };
-        break;
+    const getInset = cond([
+      [
+        leftLessThanZero,
+        () => ({ ...tooltipInset, left: 0, translateX: 0, bottom })
+      ],
+      [
+        rightBiggerThanWindow,
+        () => ({ right: 0, left: 'auto', translateX: 0, bottom })
+      ],
+      [stubTrue, () => ({ ...INSET, bottom })]
+    ]);
 
-      default:
-        newInset = { ...INSET, bottom };
-    }
-
-    return newInset;
+    return getInset(left, right);
   }
 
   function showTooltip() {

@@ -9,10 +9,12 @@ export function createSlidesXPoints(
   //prevent console errors
   if (!sliderContainer || !sliderContent) return null;
 
-  return map(Array(slidesCount), (_, i) => {
-    const offset = getPercent(sliderContainer.offsetWidth, 10);
-    return (sliderContent.offsetWidth / slidesCount) * -i + offset;
-  });
+  return Array(slidesCount)
+    .fill()
+    .map((_, i) => {
+      const offset = getPercent(sliderContainer.offsetWidth, 10);
+      return (sliderContent.offsetWidth / slidesCount) * -i + offset;
+    });
 }
 
 export function getIncreasedSlideIndex(activeSlideIndex, slidesCount) {

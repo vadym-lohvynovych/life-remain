@@ -6,7 +6,7 @@
 
   export let text = '';
 
-  const defaultTooltipInset = {
+  const INSET = {
     left: '50%',
     right: 'auto',
     translateX: '-50%',
@@ -18,17 +18,30 @@
 
   let tooltipExists = false;
   let isTooltipVisible = false;
-  let tooltipInset = defaultTooltipInset;
+  let tooltipInset = INSET;
   let parentRef = null;
   let tooltipRef = null;
+  let tooltipStyle = null;
+  let tooltipArrowStyle = null;
+
+  $: {
+    tooltipStyle = `
+    left: ${tooltipInset.left};
+    right: ${tooltipInset.right};
+    bottom: calc(${tooltipInset.bottom + 2}px);
+    transform: translateX(${tooltipInset.translateX});
+    `;
+
+    tooltipArrowStyle = `bottom: calc(${tooltipInset.bottom - 4}px)`;
+  }
 
   onMount(() => {
-    if (parentRef.children.length > 1) {
+    if (parentRef.children.length !== 1) {
       throw new Error('Tooltip must wrap only one child');
     }
   });
 
-  function getTooltipInset() {
+  function createVisibleTooltipInset() {
     if (isTooltipVisible) {
       return tooltipInset;
     }
@@ -37,33 +50,31 @@
     const bottom = parentRef.children[0]
       ? parentRef.children[0].offsetHeight
       : 0;
+    let newInset;
 
-    if (left < 0) {
-      return {
-        ...tooltipInset,
-        left: 0,
-        translateX: 0,
-        bottom
-      };
-    } else if (right > window.innerWidth) {
-      return {
-        right: 0,
-        left: 'auto',
-        translateX: 0,
-        bottom
-      };
-    } else {
-      return { ...defaultTooltipInset, bottom };
+    switch (true) {
+      case left < 0:
+        newInset = { ...tooltipInset, left: 0, translateX: 0, bottom };
+        break;
+
+      case right > window.innerWidth:
+        newInset = { right: 0, left: 'auto', translateX: 0, bottom };
+        break;
+
+      default:
+        newInset = { ...INSET, bottom };
     }
+
+    return newInset;
   }
 
   function showTooltip() {
-    tooltipInset = getTooltipInset();
+    tooltipInset = createVisibleTooltipInset();
     isTooltipVisible = true;
   }
 
   function hideTooltip() {
-    tooltipInset = defaultTooltipInset;
+    tooltipInset = INSET;
     isTooltipVisible = false;
   }
 </script>
@@ -96,8 +107,7 @@
       <div
         class="tooltip absolute px-3 py-1 rounded bg-gray-700 text-white"
         bind:this={tooltipRef}
-        style="left: {tooltipInset.left}; right: {tooltipInset.right}; bottom:
-        calc({tooltipInset.bottom + 2}px); transform: translateX({tooltipInset.translateX})"
+        style={tooltipStyle}
         on:introstart={showTooltip}
         on:outroend={hideTooltip}
         in:fade={commonAnimationSettings}
@@ -106,7 +116,7 @@
       </div>
       <span
         class="tooltip-arrow"
-        style="bottom: calc({tooltipInset.bottom - 4}px)"
+        style={tooltipArrowStyle}
         in:fade={commonAnimationSettings}
         out:fly={flyAnimationSettings} />
     </div>

@@ -1,4 +1,5 @@
 import { getPercent } from '../../helpers/common';
+import { map } from 'lodash';
 
 export function createSlidesXPoints(
   sliderContainer,
@@ -8,7 +9,7 @@ export function createSlidesXPoints(
   //prevent console errors
   if (!sliderContainer || !sliderContent) return null;
 
-  return new Array(slidesCount).fill().map((_, i) => {
+  return map(Array(slidesCount), (_, i) => {
     const offset = getPercent(sliderContainer.offsetWidth, 10);
     return (sliderContent.offsetWidth / slidesCount) * -i + offset;
   });

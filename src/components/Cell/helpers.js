@@ -20,7 +20,6 @@ export function getCellSize(totalCellsCount) {
 export function getCellDefaultProps(color, size, additionalClassName) {
   return {
     style: `background-color: ${color}; width: ${size}px; height: ${size}px`,
-    class: `cell block cursor-pointer rounded transition-shadow duration-100
-    hover:shadow-outline ${additionalClassName}`
+    class: `cell ${additionalClassName}`
   };
 }

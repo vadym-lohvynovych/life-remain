@@ -1,5 +1,5 @@
 <script>
-  import { onMount } from 'svelte';
+  import { onMount, onDestroy } from 'svelte';
   import { spring } from 'svelte/motion';
   import { asSlider } from '../../actions/slider';
   import {
@@ -26,17 +26,6 @@
   onMount(() => {
     window.addEventListener('resize', updateXPoints);
 
-    initializeSlider();
-  });
-
-  function updateXPoints() {
-    slidesXPoints =
-      createSlidesXPoints(slider, sliderContent, slidesCount) || slidesXPoints;
-
-    slidesXPoints.length && setX(slidesXPoints[activeSlideIndex]);
-  }
-
-  function initializeSlider() {
     slidesCount = sliderContent.children.length;
 
     setWidthToElement(`${80 * slidesCount}%`)(sliderContent);
@@ -46,6 +35,17 @@
     Array.from(sliderContent.children).forEach(
       setWidthToElement(`${100 / slidesCount}%`)
     );
+  });
+
+  onDestroy(() => {
+    window.removeEventListener('resize', updateXPoints);
+  });
+
+  function updateXPoints() {
+    slidesXPoints =
+      createSlidesXPoints(slider, sliderContent, slidesCount) || slidesXPoints;
+
+    slidesXPoints.length && setX(slidesXPoints[activeSlideIndex]);
   }
 
   function setX(value) {

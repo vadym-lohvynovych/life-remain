@@ -77,6 +77,9 @@
     tooltipInset = INSET;
     isTooltipVisible = false;
   }
+
+  const makeTooltipExisting = () => (tooltipExists = text && true);
+  const makeTooltipNotExisting = () => (tooltipExists = false);
 </script>
 
 <style>
@@ -98,8 +101,8 @@
 <div
   class="inline-block relative"
   bind:this={parentRef}
-  on:mouseenter={text ? () => (tooltipExists = true) : null}
-  on:mouseleave={text ? () => (tooltipExists = false) : null}>
+  on:mouseenter={makeTooltipExisting}
+  on:mouseleave={makeTooltipNotExisting}>
 
   <slot />
   {#if String(text).trim() && tooltipExists}

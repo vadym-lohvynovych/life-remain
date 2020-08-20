@@ -8,5 +8,6 @@
 </script>
 
 <div style="padding: {gap}px">
+  123
   <div {...getCellDefaultProps(color, size, additionalClassName)} />
 </div>

@@ -3,7 +3,8 @@
   import { fly, fade } from 'svelte/transition';
   import { circIn } from 'svelte/easing';
   import { onMount } from 'svelte';
-  import { cond, stubTrue } from 'lodash';
+  import cond from 'lodash/cond';
+  import stubTrue from 'lodash/stubTrue';
 
   export let text = '';
 

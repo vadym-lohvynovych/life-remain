@@ -1,5 +1,4 @@
 import { getPercent } from '../../helpers/common';
-import { map } from 'lodash';
 
 export function createSlidesXPoints(
   sliderContainer,

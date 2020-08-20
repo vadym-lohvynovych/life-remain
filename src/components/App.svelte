@@ -1,5 +1,5 @@
 <script>
-  import Slider from './Slider';
+  import Slider from './Slider/Slider.svelte';
   import TestSlide from './TestSlide';
   import Datepicker from './Datepicker';
   import Quote from './Quote';

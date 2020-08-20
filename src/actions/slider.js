@@ -1,55 +1,72 @@
 export function asSlider(node) {
   let x;
 
-  function handleMousedown(e) {
-    x = typeof e.clientX == 'number' ? e.clientX : e.touches[0].clientX;
-    node.dispatchEvent(
-      new CustomEvent('slideStart', {
-        detail: { x }
-      })
-    );
+  const motionListenersModel = {
+    mousemove: handleMousemove,
+    touchmove: handleMousemove,
+    mouseup: handleMouseup,
+    touchend: handleMouseup
+  };
 
-    document.body.addEventListener('mousemove', handleMousemove);
-    document.body.addEventListener('touchmove', handleMousemove);
-    document.body.addEventListener('mouseup', handleMouseup);
-    document.body.addEventListener('touchend', handleMouseup);
+  const beginningListenersModel = {
+    mousedown: handleMousedown,
+    touchstart: handleMousedown
+  };
+
+  function handleMousedown(e) {
+    x = getClientXFromEvent(e);
+
+    dispatchCustomEvent(node, 'slideStart', { x });
+
+    handleListeners(motionListenersModel, 'add');
   }
 
   function handleMousemove(e) {
-    const clientX =
-      typeof e.clientX == 'number' ? e.clientX : e.touches[0].clientX;
+    const clientX = getClientXFromEvent(e);
 
     const dx = clientX - x;
 
-    node.dispatchEvent(
-      new CustomEvent('slideMove', {
-        detail: { x, dx }
-      })
-    );
+    dispatchCustomEvent(node, 'slideMove', { x, dx });
   }
 
   function handleMouseup(e) {
-    x = typeof e.clientX == 'number' ? e.clientX : e.changedTouches[0].clientX;
+    x = getClientXFromEvent(e, true);
 
-    node.dispatchEvent(
-      new CustomEvent('slideEnd', {
-        detail: { x }
-      })
-    );
+    dispatchCustomEvent(node, 'slideEnd', { x });
 
-    document.body.removeEventListener('mousemove', handleMousemove);
-    document.body.removeEventListener('touchmove', handleMousemove);
-    document.body.removeEventListener('mouseup', handleMouseup);
-    document.body.removeEventListener('touchend', handleMouseup);
+    handleListeners(motionListenersModel, 'remove');
   }
 
-  node.addEventListener('mousedown', handleMousedown);
-  node.addEventListener('touchstart', handleMousedown);
+  handleListeners(beginningListenersModel, 'add', node);
 
   return {
     destroy() {
-      node.removeEventListener('mousedown', handleMousedown);
-      node.removeEventListener('touchstart', handleMousedown);
+      handleListeners(beginningListenersModel, 'remove', node);
     }
   };
+}
+
+function handleListeners(listenersModel, handler, node = document.body) {
+  const listeners = {
+    add: node.addEventListener.bind(node),
+    remove: node.removeEventListener.bind(node)
+  };
+
+  Object.keys(listenersModel).forEach((type) => {
+    listeners[handler](type, listenersModel[type]);
+  });
+}
+
+function dispatchCustomEvent(node, name, detail) {
+  node.dispatchEvent(new CustomEvent(name, { detail }));
+}
+
+function getClientXFromEvent(event, isMouseUp) {
+  return typeof event.clientX == 'number'
+    ? event.clientX
+    : event[getTouchPropertyName(isMouseUp)][0].clientX;
+}
+
+function getTouchPropertyName(isMouseUp) {
+  return isMouseUp ? 'changedTouches' : 'touches';
 }

@@ -1,5 +1,5 @@
-import Datepicker from '../../components/Datepicker.svelte';
-import { birthDate } from '../../stores/birthDate';
+import Datepicker from '../../src/components/Datepicker.svelte';
+import { birthDate } from '../../src/stores/birthDate';
 
 export default { title: 'Date Picker' };
 
@@ -7,7 +7,7 @@ const change = (selectedDates, dateStr, instance) => {
   birthDate.set(dateStr);
 };
 
-const additionalClass = 'text-center mx-auto mt-5 shadow-lg';
+const inputFieldClass = 'text-center mx-auto mt-5 shadow-lg';
 
 const defaultOptions = {
   onChange: change,
@@ -24,8 +24,8 @@ export const DatePickerToggable = () => ({
   Component: Datepicker,
   props: {
     options: defaultOptions,
-    additionalClass,
-    parentClass: 'px-8',
+    inputFieldClass,
+    containerClass: 'px-8',
     value: birthDate.get()
   }
 });
@@ -37,8 +37,8 @@ export const DatePickerInlineStatic = () => ({
       ...defaultOptions,
       ...optionsInline
     },
-    parentClass: 'text-center',
-    additionalClass,
+    containerClass: 'text-center',
+    inputFieldClass,
     value: birthDate.get()
   }
 });

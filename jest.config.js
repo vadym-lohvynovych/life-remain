@@ -3,5 +3,5 @@
 
 module.exports = {
   clearMocks: true,
-  setupFiles: ['./src/jest/browserMocks.js']
+  setupFiles: ['./jest/browserMocks.js']
 };

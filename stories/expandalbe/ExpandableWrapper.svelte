@@ -1,5 +1,5 @@
 <script>
-  import Expandable from '../../components/Expandable.svelte';
+  import Expandable from '../../src/components/Expandable/Expandable.svelte';
   import TestPreview from './TestPreview.svelte';
   import FullScreenComponent from './FullScreenComponent.svelte';
 </script>

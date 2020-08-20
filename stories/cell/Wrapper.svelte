@@ -1,8 +1,12 @@
 <script>
-  import Cell from '../../components/Cell.svelte';
+  import Cell from '../../src/components/Cell/Cell.svelte';
   import PositionButton from './PositionButton';
+  import Tooltip from '../../src/components/Tooltip.svelte';
   export let title = '';
   export let cellProps = {};
+  export let total = 1;
+
+  const padding = total < 500 ? 3 : 1;
 
   let size = 50;
   let color = '#4a5568';
@@ -12,7 +16,7 @@
   const buttonClassName =
     'px-5 py-1 mx-1 rounded duration-100 hover:bg-blue-300';
 
-  const cellClassesMap = ['mr-auto', 'mx-auto', 'ml-auto'];
+  const cellClassesMap = ['', 'justify-center', 'justify-end'];
   const buttonTextMap = ['left', 'center', 'right'];
 
   let cellAdditionalClass = cellClassesMap[activeButtonIndex];
@@ -64,9 +68,13 @@
   </div>
 </div>
 
-<Cell
-  {...cellProps}
-  {size}
-  {color}
-  {popupText}
-  additionalClassName="mt-12 {cellAdditionalClass}" />
+<div class="flex mt-8 {cellAdditionalClass}">
+  <Tooltip text={popupText}>
+    <Cell
+      {...cellProps}
+      {size}
+      {color}
+      {popupText}
+      style="padding: {padding}px" />
+  </Tooltip>
+</div>

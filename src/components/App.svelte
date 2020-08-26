@@ -3,12 +3,14 @@
   import TestSlide from './TestSlide';
   import Datepicker from './Datepicker';
   import Quote from './Quote';
+  import Slides from './Slides.svelte';
 
   import { birthDate } from '../stores/birthDate';
 
   const change = (selectedDates, dateStr, instance) => {
     birthDate.set(dateStr);
   };
+
   const options = {
     onChange: change,
     maxDate: new Date(),
@@ -27,20 +29,21 @@
     <Datepicker {options} value={birthDate.get()} />
   </div>
 </header>
-<main>
-  <div class="lg:hidden py-8">
-    <Slider>
-      {#each [1, 2, 3] as number (number)}
-        <TestSlide {number} />
-      {/each}
-    </Slider>
-  </div>
-  <div class="hidden lg:flex items-center py-8">
-    {#each [1, 2, 3] as number (number)}
-      <TestSlide {number} />
-    {/each}
-  </div>
-</main>
+{#if $birthDate && $birthDate !== 'null'}
+  <main>
+    <div class="lg:hidden py-8">
+      <Slider>
+        <Slides />
+      </Slider>
+    </div>
+    <div class="hidden lg:flex items-center justify-center py-8">
+      <Slides />
+    </div>
+  </main>
+{:else}
+  <h2 class="px-5 py-2 text-2xl text-center">Please, choose date.</h2>
+{/if}
+
 <footer>
   <div class="container mx-auto p-3 sm:py-4 xl:py-5">
     <p class="text-sm md:text-base text-gray-700">

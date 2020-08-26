@@ -10,7 +10,7 @@
 
   let size = 50;
   let color = '#4a5568';
-  let popupText = 'Popup text!';
+  let tooltipText = 'Popup text!';
   let activeButtonIndex = 0;
 
   const buttonClassName =
@@ -40,7 +40,7 @@
     placeholder="Popup text"
     class="block border-2 border-gray-700 rounded px-4 py-1 max-w-xs"
     type="text"
-    bind:value={popupText} />
+    bind:value={tooltipText} />
 
   <div class="flex items-center mt-3">
     <p class="font-bold">Color:</p>
@@ -69,12 +69,12 @@
 </div>
 
 <div class="flex mt-8 {cellAdditionalClass}">
-  <Tooltip text={popupText}>
+  <Tooltip text={tooltipText}>
     <Cell
       {...cellProps}
       {size}
       {color}
-      {popupText}
+      {tooltipText}
       style="padding: {padding}px" />
   </Tooltip>
 </div>

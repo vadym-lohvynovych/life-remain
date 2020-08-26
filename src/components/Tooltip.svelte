@@ -105,7 +105,6 @@
   bind:this={parentRef}
   on:mouseenter={makeTooltipExisting}
   on:mouseleave={makeTooltipNotExisting}>
-
   <slot />
   {#if String(text).trim() && tooltipExists}
     <div>

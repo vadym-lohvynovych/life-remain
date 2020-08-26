@@ -3,7 +3,7 @@
   import Cell from '../../src/components/Cell/Cell.svelte';
 
   export let total = 0;
-  export let getCellProps = null;
+  export let getCellProps = () => void 0;
 </script>
 
 <div class="flex items-center justify-around flex-wrap">

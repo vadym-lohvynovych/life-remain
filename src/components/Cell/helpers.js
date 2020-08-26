@@ -1,4 +1,4 @@
-export function getCellSize(totalCellsCount) {
+function getCellSize(totalCellsCount) {
   switch (true) {
     case totalCellsCount < 100:
       return 38;
@@ -21,5 +21,17 @@ export function getCellDefaultProps(color, size, additionalClassName) {
   return {
     style: `background-color: ${color}; width: ${size}px; height: ${size}px`,
     class: `cell ${additionalClassName}`
+  };
+}
+
+export function getCellProps(index, itemsCount) {
+  const [lived, total] = itemsCount;
+  const color = index < lived ? 'IndianRed' : 'steelblue';
+
+  return {
+    color,
+    tooltipText: index + 1,
+    size: getCellSize(total),
+    gap: total < 500 ? 3 : 1
   };
 }

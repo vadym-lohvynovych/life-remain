@@ -7,6 +7,7 @@ function createBirthDate() {
 
   return {
     set: birthDate.set,
+    subscribe: birthDate.subscribe,
     get: () => get(birthDate)
   };
 }

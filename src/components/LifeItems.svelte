@@ -3,7 +3,6 @@
   import ExpandableSlots from './Expandable/ExpandableSlots.svelte';
   import CellsWrapper from './CellsWrapper.svelte';
 
-  import TestSlide from './TestSlide.svelte';
   import { birthDate } from '../stores/birthDate';
   import { getLifeCount } from '../helpers/calculations';
   import Preview from './Preview.svelte';

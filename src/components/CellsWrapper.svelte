@@ -17,8 +17,7 @@
   }));
 </script>
 
-<div
-  class="p-3 sm:p-5 bg-gray-300 h-full flex flex-col items-center overflow-auto">
+<div class="p-3 sm:p-5 bg-gray-300 h-full flex flex-col items-center">
   {#if isFullVisible}
     <div in:fade out:fade={{ duration: 20 }}>
       <button

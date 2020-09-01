@@ -3,7 +3,6 @@
   import Datepicker from './Datepicker';
   import Quote from './Quote';
   import Slides from './Slides.svelte';
-
   import { birthDate } from '../stores/birthDate';
 
   const change = (selectedDates, dateStr, instance) => {
@@ -17,10 +16,6 @@
   };
 </script>
 
-<style>
-
-</style>
-
 <header>
   <div class="container mx-auto p-3 sm:py-4 xl:py-5">
     <h1 class="text-2xl">LifeRemain</h1>
@@ -28,14 +23,15 @@
     <Datepicker {options} value={birthDate.get()} />
   </div>
 </header>
+
 {#if $birthDate && $birthDate !== 'null'}
   <main>
-    <div class="lg:hidden py-8">
+    <div class="md:hidden py-8">
       <Slider>
         <Slides />
       </Slider>
     </div>
-    <div class="hidden lg:flex items-center justify-center py-8">
+    <div class="hidden md:flex items-center justify-center py-8">
       <Slides />
     </div>
   </main>

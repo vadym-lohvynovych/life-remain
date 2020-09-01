@@ -1,5 +1,6 @@
 export function asSlider(node) {
   let x;
+  let y;
 
   const motionListenersModel = {
     mousemove: handleMousemove,
@@ -15,24 +16,30 @@ export function asSlider(node) {
 
   function handleMousedown(e) {
     x = getClientXFromEvent(e);
+    y = getClientYFromEvent(e);
 
-    dispatchCustomEvent(node, 'slideStart', { x });
+    dispatchCustomEvent(node, 'slideStart', { x, y });
 
     handleListeners(motionListenersModel, 'add');
   }
 
   function handleMousemove(e) {
     const clientX = getClientXFromEvent(e);
+    const clientY = getClientYFromEvent(e);
 
     const dx = clientX - x;
+    const dy = clientY - y;
 
-    dispatchCustomEvent(node, 'slideMove', { x, dx });
+    dispatchCustomEvent(node, 'slideMove', { x, dx, dy });
   }
 
   function handleMouseup(e) {
+    e.stopPropagation();
+    e.preventDefault();
     x = getClientXFromEvent(e, true);
+    y = getClientYFromEvent(e, true);
 
-    dispatchCustomEvent(node, 'slideEnd', { x });
+    dispatchCustomEvent(node, 'slideEnd', { x, y });
 
     handleListeners(motionListenersModel, 'remove');
   }
@@ -65,6 +72,12 @@ function getClientXFromEvent(event, isMouseUp) {
   return typeof event.clientX == 'number'
     ? event.clientX
     : event[getTouchPropertyName(isMouseUp)][0].clientX;
+}
+
+function getClientYFromEvent(event, isMouseUp) {
+  return typeof event.clientY == 'number'
+    ? event.clientY
+    : event[getTouchPropertyName(isMouseUp)][0].clientY;
 }
 
 function getTouchPropertyName(isMouseUp) {

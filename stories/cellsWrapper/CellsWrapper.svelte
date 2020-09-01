@@ -8,8 +8,6 @@
   const cellProps = [...Array(lifeItems[1])].map((c, i) => ({
     ...getCellProps(i, lifeItems)
   }));
-
-  console.log('-->', lifeItems);
 </script>
 
 <div class="flex items-center justify-around flex-wrap">

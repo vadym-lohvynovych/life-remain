@@ -6,7 +6,6 @@
   let parentRef = null;
   let isExpanded = false;
   let isFullVisible = false;
-  let fullComponentRef = null;
 
   function showFullScreenComponent() {
     isExpanded = true;
@@ -14,11 +13,16 @@
 
   function hideFullScreenComponent() {
     isFullVisible = false;
-    isExpanded = false;
+    setTimeout(() => (isExpanded = false), 50);
+  }
+
+  function endOpening() {
+    // calls before block is fullScreen, need small timeout
+    setTimeout(() => (isFullVisible = true), 50);
   }
 
   function closeOnEsc(e) {
-    if (e.which === 27) {
+    if (e.which === 27 && isFullVisible) {
       hideFullScreenComponent();
     }
   }
@@ -38,17 +42,15 @@
 </style>
 
 <div class="inline-block" bind:this={parentRef}>
-  <div class:opacity-0={isExpanded} class="duration-500">
-    <slot name="preview" {showFullScreenComponent} />
-  </div>
+  <slot name="preview" {showFullScreenComponent} />
 
   {#if isExpanded}
     <Portal>
       <div
         in:expandAnimation={{ parent: parentRef }}
         out:expandAnimation={{ parent: parentRef }}
-        on:introend={() => (isFullVisible = true)}
-        class="expandable fixed overflow-hidden inset-0">
+        on:introend={endOpening}
+        class="expandable fixed inset-0 overflow-y-auto overflow-x-hidden">
         <slot
           name="fullScreenComponent"
           {isFullVisible}

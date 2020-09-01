@@ -5,6 +5,14 @@
   @apply block py-1 px-5 rounded-lg outline-none transition-all duration-200;
 }
 
+.cell {
+  @apply block cursor-pointer rounded transition-shadow duration-100;
+}
+
+.cell:hover {
+  @apply shadow-outline;
+}
+
 @tailwind utilities;
 
 @import './grid.css';
@@ -22,4 +30,9 @@ input,
 select,
 textarea {
   font-family: inherit;
+}
+
+img {
+  max-width: 100% !important;
+  max-height: 100% !important;
 }

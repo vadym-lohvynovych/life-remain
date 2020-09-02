@@ -46,9 +46,11 @@ function getRectX(index, colsAmount, rectSize) {
 function getRectY(index, rowsAmount, rectSize, count, colsAmount) {
   if (rowsAmount === 1 || count < colsAmount || index < colsAmount) return 0;
 
-  for (let i = 1; i <= rowsAmount; i++) {
-    if (index < colsAmount * i) {
-      return rectSize * i - rectSize;
-    }
-  }
+  return rectSize * getRow(index, colsAmount) - rectSize;
+}
+
+function getRow(index, colsAmount, possibleRow = 1) {
+  return index < colsAmount * possibleRow
+    ? possibleRow
+    : getRow(index, colsAmount, possibleRow + 1);
 }

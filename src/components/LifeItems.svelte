@@ -1,6 +1,5 @@
 <script>
   import { fade, fly } from 'svelte/transition';
-  import Expandable from './Expandable/Expandable.svelte';
   import ExpandableSlots from './Expandable/ExpandableSlots.svelte';
   import { birthDate } from '../stores/birthDate';
   import { getLifeCount } from '../helpers/calculations';

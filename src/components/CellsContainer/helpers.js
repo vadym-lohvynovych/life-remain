@@ -29,6 +29,12 @@ export function getCellProps(index, itemsCount) {
   };
 }
 
+export function setAttributes(el, attrs) {
+  Object.keys(attrs).forEach((attr) => {
+    el.attr(attr, attrs[attr]);
+  });
+}
+
 export const createSvg = (width, height) =>
   create('svg').attr('width', width).attr('height', height);
 
@@ -49,7 +55,7 @@ export function createRectsData({
   const rectSize = size + gap * 2;
   const colsAmount = Math.floor(containerWidth / rectSize);
   const rowsAmount = Math.ceil(count / colsAmount);
-  const xOffset = (containerWidth - rectSize * colsAmount) / 2;
+  const xOffset = (containerWidth - rectSize * colsAmount) / 2 + gap;
 
   return emptyData.map((_, i) => {
     const additionalProps =

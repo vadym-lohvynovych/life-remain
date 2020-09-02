@@ -1,7 +1,7 @@
 <script>
   import { onMount, onDestroy } from 'svelte';
   import { select } from 'd3';
-  import { createSvg, getId, createRectsData } from './helpers';
+  import { createSvg, getId, createRectsData, setAttributes } from './helpers';
 
   export let count = 2;
   export let size = 100;
@@ -71,21 +71,24 @@
   }
 
   function updateRectsSizes() {
-    g &&
-      g
-        .selectAll('rect')
-        .data(data)
+    if (g) {
+      const rects = g.selectAll('rect').data(data);
+      rects.exit().remove();
+      rects
+        .enter()
+        .append('rect')
+        .on('mouseover', handleRectHover)
+        .on('mouseout', handleRectMouseout)
+        .merge(rects)
         .attr('fill', keyGetter('color'))
+        .attr('rx', 3)
+        .attr('ry', 3)
         .attr('x', keyGetter('x'))
         .attr('y', keyGetter('y'))
         .attr('width', keyGetter('size'))
-        .attr('height', keyGetter('size'));
-  }
-
-  function setAttributes(el, attrs) {
-    Object.keys(attrs).forEach((attr) => {
-      el.attr(attr, attrs[attr]);
-    });
+        .attr('height', keyGetter('size'))
+        .style('cursor', 'pointer');
+    }
   }
 
   function handleRectHover(e, rect) {

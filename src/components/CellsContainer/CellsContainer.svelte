@@ -42,7 +42,7 @@
       });
 
       updateSvgElementsSizes();
-      updateRectsSizes();
+      updateRects();
     }
   }
 
@@ -70,7 +70,7 @@
     g && g.style('transform', `translate(${margin.left}px, ${margin.top}px)`);
   }
 
-  function updateRectsSizes() {
+  function updateRects() {
     if (g) {
       const rects = g.selectAll('rect').data(data);
       rects.exit().remove();

@@ -8,6 +8,7 @@
   let isFullVisible = false;
 
   function showFullScreenComponent() {
+    console.log('-->', 1);
     isExpanded = true;
   }
 

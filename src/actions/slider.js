@@ -34,8 +34,6 @@ export function asSlider(node) {
   }
 
   function handleMouseup(e) {
-    e.stopPropagation();
-    e.preventDefault();
     x = getClientXFromEvent(e, true);
     y = getClientYFromEvent(e, true);
 

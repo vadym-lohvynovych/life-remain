@@ -2,12 +2,11 @@
   import { fade, fly } from 'svelte/transition';
   import Expandable from './Expandable/Expandable.svelte';
   import ExpandableSlots from './Expandable/ExpandableSlots.svelte';
-  import CellsWrapper from './CellsWrapper.svelte';
   import { birthDate } from '../stores/birthDate';
   import { getLifeCount } from '../helpers/calculations';
   import Preview from './Preview.svelte';
   import CellsContainer from './CellsContainer/CellsContainer.svelte';
-  import { getCellProps, getCellSize } from './Cell/helpers';
+  import { getCellSize, getCellProps } from './CellsContainer/helpers';
   import arrow from '../../assets/images/arrow-black.svg';
   import { toCapitalize } from '../helpers/common';
 

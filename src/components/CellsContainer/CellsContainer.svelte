@@ -9,6 +9,8 @@
   export let getAdditionalRectProps;
   export let tooltipBackground = '#4a5568';
   export let tooltipColor = 'MintCream';
+  export let color = 'SteelBlue';
+  export let hoverColor = 'IndianRed';
   export let margin = { top: 20, left: 20, right: 20, bottom: 20 };
 
   let containerRef = null;
@@ -34,7 +36,9 @@
         count,
         size,
         gap,
-        getAdditionalRectProps
+        getAdditionalRectProps,
+        color,
+        hoverColor
       });
 
       updateSvgElementsSizes();
@@ -57,8 +61,8 @@
       .attr('rx', 3)
       .attr('ry', 3)
       .style('cursor', 'pointer')
-      .on('mouseover', createTooltip)
-      .on('mouseout', removeTooltip);
+      .on('mouseover', handleRectHover)
+      .on('mouseout', handleRectMouseout);
   });
 
   function updateSvgElementsSizes() {
@@ -84,16 +88,22 @@
     });
   }
 
-  function createTooltip(e, rect) {
-    const xPadding = 5;
-    const yPadding = 2;
-    const textY = rect.y - 8;
-    const textX = rect.x + xPadding;
-
+  function handleRectHover(e, rect) {
     select(this)
       .transition()
       .attr('fill', keyGetter('hoverColor'))
       .duration(150);
+
+    if (rect.tooltipText) {
+      createTooltip(rect);
+    }
+  }
+
+  function createTooltip(rect) {
+    const xPadding = 5;
+    const yPadding = 2;
+    const textY = rect.y - 8;
+    const textX = rect.x + xPadding;
 
     const [bgId, textId, triangleId] = [
       getId('bg', rect.index),
@@ -170,12 +180,18 @@
     }
   }
 
-  function removeTooltip(e, rect) {
+  function removeTooltip(index) {
+    select('#' + getId('text', index)).remove();
+    select('#' + getId('bg', index)).remove();
+    select('#' + getId('triangle', index)).remove();
+  }
+
+  function handleRectMouseout(e, rect) {
     select(this).transition().attr('fill', keyGetter('color')).duration(150);
 
-    select('#' + getId('text', rect.index)).remove();
-    select('#' + getId('bg', rect.index)).remove();
-    select('#' + getId('triangle', rect.index)).remove();
+    if (rect.tooltipText) {
+      removeTooltip(rect.index);
+    }
   }
 </script>
 

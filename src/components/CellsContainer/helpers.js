@@ -1,5 +1,34 @@
 import { create } from 'd3';
 
+export function getCellSize(totalCellsCount) {
+  switch (true) {
+    case totalCellsCount < 100:
+      return 38;
+
+    case totalCellsCount < 500:
+      return 20;
+
+    case totalCellsCount < 1000:
+      return 18;
+
+    case totalCellsCount < 2000:
+      return 16;
+
+    default:
+      return 11;
+  }
+}
+
+export function getCellProps(index, itemsCount) {
+  const [lived, total] = itemsCount;
+  const color = index < lived ? 'IndianRed' : 'SteelBlue';
+
+  return {
+    color,
+    tooltipText: 'Number: ' + ++index
+  };
+}
+
 export const createSvg = (width, height) =>
   create('svg').attr('width', width).attr('height', height);
 
@@ -20,6 +49,7 @@ export function createRectsData({
   const rectSize = size + gap * 2;
   const colsAmount = Math.floor(containerWidth / rectSize);
   const rowsAmount = Math.ceil(count / colsAmount);
+  const xOffset = (containerWidth - rectSize * colsAmount) / 2;
 
   return emptyData.map((_, i) => {
     const additionalProps =
@@ -28,7 +58,7 @@ export function createRectsData({
         : {};
 
     return {
-      x: getRectX(i, colsAmount, rectSize),
+      x: getRectX(i, colsAmount, rectSize) + xOffset,
       y: getRectY(i, rowsAmount, rectSize, count, colsAmount),
       size,
       color,

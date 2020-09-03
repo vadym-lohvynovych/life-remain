@@ -1,10 +1,13 @@
 import { writable, get } from 'svelte/store';
 
 function createBirthDate() {
-  const birthDate = writable(localStorage.getItem('birthDate') || null);
+  const birthDate = writable(
+    JSON.parse(localStorage.getItem('birthDate')) || null
+  );
 
-  birthDate.subscribe((val) => localStorage.setItem('birthDate', val));
-
+  birthDate.subscribe((val) =>
+    localStorage.setItem('birthDate', JSON.stringify(val))
+  );
   return {
     set: birthDate.set,
     subscribe: birthDate.subscribe,

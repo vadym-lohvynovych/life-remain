@@ -23,8 +23,7 @@
     <Datepicker {options} value={birthDate.get()} />
   </div>
 </header>
-
-{#if $birthDate && $birthDate !== 'null'}
+{#if Boolean($birthDate)}
   <main>
     <div class="md:hidden py-8">
       <Slider>

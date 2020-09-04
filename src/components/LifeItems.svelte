@@ -5,7 +5,7 @@
   import { getLifeCount } from '../helpers/calculations';
   import Preview from './Preview.svelte';
   import CellsContainer from './CellsContainer/CellsContainer.svelte';
-  import { getCellSize, getCellProps } from './CellsContainer/helpers';
+  import { getCellSize, getCellProps } from './CellsContainer/calculations';
   import arrow from '../../assets/images/arrow-black.svg';
   import { toCapitalize } from '../helpers/common';
 
@@ -27,8 +27,6 @@
       size = getCellSize(total);
     }
   }
-
-  const hClass = 'font-bold text-lg sm:text-2xl';
 </script>
 
 <style>

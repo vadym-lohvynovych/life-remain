@@ -1,7 +1,6 @@
 <script>
   import { onMount, onDestroy } from 'svelte';
   let ref;
-  let portal;
 
   onMount(() => {
     document.body.appendChild(ref);

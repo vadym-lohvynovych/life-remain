@@ -8,7 +8,6 @@
   let isFullVisible = false;
 
   function showFullScreenComponent() {
-    console.log('-->', 1);
     isExpanded = true;
   }
 
@@ -18,7 +17,8 @@
   }
 
   function endOpening() {
-    // calls before block is fullScreen, need small timeout
+    // Calls before block is fullScreen, need small timeout
+    // Because calculations start before block is fullScreen and we can see interface hanging
     setTimeout(() => (isFullVisible = true), 50);
   }
 

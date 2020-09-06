@@ -14,7 +14,7 @@ export function getCellProps(index, itemsCount) {
 
   return {
     color,
-    tooltipText: 'Number 123 123 12 312 3 12: ' + ++index
+    tooltipText: 'Number ' + ++index
   };
 }
 
@@ -83,11 +83,76 @@ function getRow(index, colsAmount, possibleRow = 1) {
     : getRow(index, colsAmount, possibleRow + 1);
 }
 
-export function getElementOuterInset(element, margin) {
-  const outerLeft = Number(element.attr('x')) + Number(margin.left);
+export function getTooltipElementsBounding({
+  innerWidth,
+  rect,
+  text,
+  xPadding,
+  yPadding,
+  margin
+}) {
+  const bgWidth = text.width + xPadding * 2;
+
+  let textX = text.x;
+  let textY = text.y;
+  let bgX = rect.x;
+  let bgY = textY - text.height + yPadding;
+  let trianglePath = `M ${rect.x + rect.size / 2} ${rect.y} l 3 -3 l -6 0 z`;
+
+  if (Number(bgY) + Number(margin.top) < 0) {
+    //outside top
+    const yMargin = rect.y + rect.size + 2;
+    bgY = yMargin;
+    textY = yMargin + text.height - yPadding;
+    trianglePath = `M ${rect.x + rect.size / 2} ${
+      rect.y + rect.size
+    } l -3 3 l 6 0 z`;
+  }
+
+  // centrating
+  if (bgWidth > rect.size) {
+    const offset = (bgWidth - rect.size) / 2;
+    bgX = rect.x - offset;
+    textX = textX - offset;
+  } else if (bgWidth < rect.size) {
+    const offset = (rect.size - bgWidth) / 2;
+    bgX = rect.x + offset;
+    textX = textX + offset;
+  }
+
+  const { outerLeft, outerRight } = getElementOuterInset(bgX, bgWidth, margin);
+
+  if (outerRight > innerWidth + margin.right) {
+    //outside right
+    const offset = outerRight - innerWidth + xPadding * 2 - margin.right;
+    bgX -= offset;
+    textX -= offset;
+  } else if (outerLeft < 0) {
+    //outside left
+    bgX = -margin.left;
+    textX = xPadding - margin.left;
+  }
+
+  return {
+    textBounding: {
+      x: textX,
+      y: textY
+    },
+    bgBounding: {
+      x: bgX,
+      y: bgY,
+      width: bgWidth,
+      height: text.height + yPadding * 2
+    },
+    trianglePath
+  };
+}
+
+function getElementOuterInset(elementX, elementWidth, margin) {
+  const outerLeft = Number(elementX) + Number(margin.left);
 
   return {
     outerLeft,
-    outerRight: outerLeft + Number(element.attr('width')) - margin.right
+    outerRight: outerLeft + Number(elementWidth) - margin.right
   };
 }

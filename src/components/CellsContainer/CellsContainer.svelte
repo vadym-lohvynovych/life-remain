@@ -35,7 +35,7 @@
   let innerWidth = 0;
 
   const rectEventsModel = {
-    mouseover: handleRectHover,
+    mouseover: handleRectMouseover,
     mouseout: handleRectMouseout
   };
 
@@ -80,7 +80,7 @@
     addSelectionEventListeners(g.selectAll('rect'), rectEventsModel);
   });
 
-  function handleRectHover(e, rect) {
+  function handleRectMouseover(e, rect) {
     select(e.target)
       .transition()
       .attr('fill', keyGetter('hoverColor'))

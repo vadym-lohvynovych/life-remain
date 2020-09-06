@@ -1,6 +1,6 @@
 import { create, select } from 'd3';
 import { get } from 'lodash';
-import { getElementOuterInset } from './calculations';
+import { getTooltipElementsBounding } from './calculations';
 
 const bgName = 'bg';
 const textName = 'text';
@@ -65,74 +65,56 @@ export function createTooltip(parent, rect, innerWidth, margin) {
   const textId = getId(textName, rect.index);
   const triangleId = getId(triangleName, rect.index);
 
-  const bg = parent.append('rect');
+  const bgEl = parent.append('rect');
 
-  const text = parent.append('text').text(rect.tooltipText);
+  const textEl = parent
+    .append('text')
+    .text(rect.tooltipText)
+    .attr('font-size', '12px');
 
-  const triangle = parent.append('path');
+  const triangleEl = parent.append('path');
 
-  setAttributes(text, {
+  const { width, height } = textEl.node().getBoundingClientRect();
+
+  const { textBounding, bgBounding, trianglePath } = getTooltipElementsBounding(
+    {
+      innerWidth,
+      rect,
+      text: {
+        width,
+        height,
+        x: textX,
+        y: textY
+      },
+      xPadding,
+      yPadding,
+      margin
+    }
+  );
+
+  setAttributes(textEl, {
     id: textId,
     fill: tooltipColor,
-    x: textX,
-    y: textY,
-    'font-size': '12px'
+    x: textBounding.x,
+    y: textBounding.y
   });
 
-  setAttributes(triangle, {
+  setAttributes(triangleEl, {
     fill: tooltipBackground,
     id: triangleId,
-    d: `M ${rect.x + rect.size / 2} ${rect.y} l 3 -3 l -6 0 z`
+    d: trianglePath
   });
 
-  const { width, height } = text.node().getBoundingClientRect();
-  const bgWidth = width + xPadding * 2;
-
-  setAttributes(bg, {
-    x: rect.x,
-    y: textY - height + yPadding,
-    width: bgWidth,
-    height: height + yPadding * 2,
+  setAttributes(bgEl, {
+    x: bgBounding.x,
+    y: bgBounding.y,
+    width: bgBounding.width,
+    height: bgBounding.height,
     id: bgId,
     fill: tooltipBackground,
     rx: 3,
     ry: 3
   });
-
-  if (Number(bg.attr('y')) + Number(margin.top) < 0) {
-    //outside top
-    const margin = rect.y + rect.size + 2;
-    bg.attr('y', margin);
-    text.attr('y', margin + height - yPadding);
-    triangle.attr(
-      'd',
-      `M ${rect.x + rect.size / 2} ${rect.y + rect.size} l -3 3 l 6 0 z`
-    );
-  }
-
-  // centrating
-  if (bgWidth > rect.size) {
-    const offset = (bgWidth - rect.size) / 2;
-    bg.attr('x', rect.x - offset);
-    text.attr('x', textX - offset);
-  } else if (bgWidth < rect.size) {
-    const offset = (rect.size - bgWidth) / 2;
-    bg.attr('x', rect.x + offset);
-    text.attr('x', textX + offset);
-  }
-
-  const { outerLeft, outerRight } = getElementOuterInset(bg, margin);
-
-  if (outerRight > innerWidth + margin.right) {
-    //outside right
-    const offset = outerRight - innerWidth + xPadding * 2 - margin.right;
-    bg.attr('x', bg.attr('x') - offset);
-    text.attr('x', text.attr('x') - offset);
-  } else if (outerLeft < 0) {
-    //outside left
-    bg.attr('x', -margin.left);
-    text.attr('x', xPadding - margin.left);
-  }
 }
 
 export function removeTooltip(index) {

@@ -1,5 +1,5 @@
 import { create, select } from 'd3';
-import { get } from 'lodash';
+import { get, each, entries } from 'lodash';
 import { getTooltipElementsBounding } from './calculations';
 
 const bgName = 'bg';
@@ -10,11 +10,9 @@ export const keyGetter = (key) => (r) => get(r, key);
 
 export const getId = (name, index) => `${name}-${index}`;
 
-export function setAttributes(el, attributesModel) {
-  Object.keys(attributesModel).forEach((attr) => {
-    el.attr(attr, attributesModel[attr]);
-  });
-}
+export const setAttributes = (el, attrs = {}) => {
+  each(entries(attrs), (attr) => el.attr(...attr));
+};
 
 export const createSvg = (width, height) =>
   create('svg').attr('width', width).attr('height', height);

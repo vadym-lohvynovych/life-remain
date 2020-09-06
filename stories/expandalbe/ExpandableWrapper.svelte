@@ -1,21 +1,61 @@
 <script>
-  import Expandable from '../../src/components/Expandable/Expandable.svelte';
   import TestPreview from './TestPreview.svelte';
   import FullScreenComponent from './FullScreenComponent.svelte';
+  import ExpandableSlots from '../../src/components/Expandable/ExpandableSlots.svelte';
 </script>
 
 <div class="mt-10 ml-5">
-  <Expandable preview={TestPreview} fullScreenComponent={FullScreenComponent} />
+  <ExpandableSlots
+    let:isFullVisible
+    let:showFullScreenComponent
+    let:hideFullScreenComponent>
+    <div slot="preview">
+      <TestPreview {showFullScreenComponent} />
+    </div>
+    <div slot="fullScreenComponent" class="h-full">
+      <FullScreenComponent {isFullVisible} {hideFullScreenComponent} />
+    </div>
+  </ExpandableSlots>
 </div>
 
 <div class="mt-32 ml-32">
-  <Expandable preview={TestPreview} fullScreenComponent={FullScreenComponent} />
+  <ExpandableSlots
+    let:isFullVisible
+    let:showFullScreenComponent
+    let:hideFullScreenComponent>
+    <div slot="preview">
+      <TestPreview {showFullScreenComponent} />
+    </div>
+    <div slot="fullScreenComponent" class="h-full">
+      <FullScreenComponent {isFullVisible} {hideFullScreenComponent} />
+    </div>
+  </ExpandableSlots>
 </div>
 
 <div class="mt-32 flex justify-end mr-5">
-  <Expandable preview={TestPreview} fullScreenComponent={FullScreenComponent} />
+  <ExpandableSlots
+    let:isFullVisible
+    let:showFullScreenComponent
+    let:hideFullScreenComponent>
+    <div slot="preview">
+      <TestPreview {showFullScreenComponent} />
+    </div>
+    <div slot="fullScreenComponent" class="h-full">
+      <FullScreenComponent {isFullVisible} {hideFullScreenComponent} />
+    </div>
+  </ExpandableSlots>
 </div>
 
 <div class="mt-32 flex justify-end mr-5">
-  <Expandable preview={TestPreview} fullScreenComponent={FullScreenComponent} />
+  <ExpandableSlots
+    let:isFullVisible
+    let:showFullScreenComponent
+    let:hideFullScreenComponent>
+    <div slot="preview">
+      <TestPreview {showFullScreenComponent} />
+    </div>
+    <div slot="fullScreenComponent" class="h-full">
+      <FullScreenComponent {isFullVisible} {hideFullScreenComponent} />
+    </div>
+  </ExpandableSlots>
 </div>

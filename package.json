@@ -8,7 +8,7 @@
     "test-dev": "jest --watch",
     "clean": "rimraf dist",
     "start": "parcel src/index.html",
-    "build": "parcel build src/index.html --no-source-maps",
+    "build": "npm run clean && parcel build src/index.html --no-source-maps",
     "storybook": "start-storybook",
     "build-storybook": "npm run clean && build-storybook -c .storybook -o dist",
     "build-storybook-prod": "build-storybook -c .storybook -o dist/storybook",
@@ -47,6 +47,7 @@
     "tailwindcss": "^1.4.6"
   },
   "dependencies": {
+    "d3": "^6.0.0",
     "date-fns": "^2.14.0",
     "flatpickr": "^4.6.3",
     "lodash": "^4.17.20"

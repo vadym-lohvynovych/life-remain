@@ -49,7 +49,6 @@ addParameters({
           height: '85vh'
         }
       }
-    },
-    defaultViewport: 'mobile'
+    }
   }
 });

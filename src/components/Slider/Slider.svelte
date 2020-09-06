@@ -1,5 +1,5 @@
 <script>
-  import { onMount, onDestroy } from 'svelte';
+  import { onMount, onDestroy, createEventDispatcher } from 'svelte';
   import { spring } from 'svelte/motion';
   import { asSlider } from '../../actions/slider';
   import {
@@ -18,8 +18,11 @@
   let sliderContent;
   let slidesCount;
   let xOnSlideStart;
+  let yOnSlideStart;
   let slidesXPoints;
   let activeSlideIndex = 0;
+  const yInfelicity = 50;
+  const xInfelicity = 50;
   // to calculate x on slidemove
   let currentTranslateX = 0;
 
@@ -55,14 +58,23 @@
 
   function slideStart(e) {
     xOnSlideStart = e.detail.x;
+    yOnSlideStart = e.detail.y;
   }
 
   function slideMove(e) {
-    x.update(($x) => currentTranslateX + e.detail.dx);
+    if (e.detail.dy < yInfelicity && e.detail.dy > -yInfelicity) {
+      x.update(($x) => currentTranslateX + e.detail.dx);
+    } else {
+      setX(currentTranslateX);
+    }
   }
 
   function slideEnd(e) {
-    if (Math.abs(xOnSlideStart - e.detail.x) < 30) {
+    if (
+      Math.abs(xOnSlideStart - e.detail.x) < xInfelicity ||
+      Math.abs(yOnSlideStart - e.detail.y) > yInfelicity
+    ) {
+      // side scroll is small or y scroll is too big
       setX(currentTranslateX);
     } else if (xOnSlideStart > e.detail.x) {
       moveSlide(getIncreasedSlideIndex(activeSlideIndex, slidesCount));
@@ -77,19 +89,11 @@
   }
 </script>
 
-<style>
-  .slider {
-    width: 100%;
-    overflow-x: hidden;
-  }
-  .slider-content {
-    user-select: none;
-  }
-</style>
-
-<div class="slider" bind:this={slider}>
+<div
+  class="slider overflow-x-hidden overflow-y-visible w-full"
+  bind:this={slider}>
   <div
-    class="slider-content cursor-pointer flex"
+    class="slider-content cursor-pointer flex select-none"
     bind:this={sliderContent}
     use:asSlider
     on:slideStart={slideStart}

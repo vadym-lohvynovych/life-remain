@@ -148,6 +148,14 @@ export function getTooltipElementsBounding({
   };
 }
 
+export const createDomain = (rowsAmount, colsAmount) =>
+  [...Array(rowsAmount)].map((r, i) => i * colsAmount + 1);
+
+export const createRange = (height, margin, rectSize) => [
+  margin.top + rectSize / 2,
+  height - margin.bottom - rectSize / 2
+];
+
 function getElementOuterInset(elementX, elementWidth, margin) {
   const outerLeft = Number(elementX) + Number(margin.left);
 

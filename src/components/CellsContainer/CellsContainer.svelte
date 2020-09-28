@@ -1,6 +1,6 @@
 <script>
-  import { onMount, onDestroy } from 'svelte';
-  import { select } from 'd3';
+  import { onMount } from 'svelte';
+  import { select, axisLeft, scalePoint } from 'd3';
   import {
     createSvg,
     createTooltip,
@@ -14,7 +14,9 @@
   import {
     calculateSvgHeight,
     createRectsData,
-    getRectTableSize
+    getRectTableSize,
+    createDomain,
+    createRange
   } from './calculations';
 
   export let count = 2;
@@ -24,11 +26,12 @@
 
   export let color = 'SteelBlue';
   export let hoverColor = 'DarkGoldenRod';
-  export let margin = { top: 20, left: 20, right: 20, bottom: 20 };
+  export let margin = { top: 20, left: 35, right: 35, bottom: 20 };
 
   let containerRef = null;
   let svg = null;
   let g = null;
+  let axis = null;
   let data = [...Array(count)];
   let containerWidth = 0;
   let height = 0;
@@ -44,7 +47,11 @@
       innerWidth = containerWidth - margin.left - margin.right;
 
       const rectSize = size + gap * 2;
-      const { rowsAmount } = getRectTableSize(rectSize, innerWidth, count);
+      const { rowsAmount, colsAmount } = getRectTableSize(
+        rectSize,
+        innerWidth,
+        count
+      );
 
       height = calculateSvgHeight(rectSize, rowsAmount, margin);
 
@@ -58,11 +65,17 @@
         hoverColor
       });
 
-      if (svg && g) {
+      if (svg && g && axis) {
         setAttributes(svg, { width: containerWidth, height });
         g.style('transform', `translate(${margin.left}px, ${margin.top}px)`);
 
         updateRectsData(g, data);
+
+        const axisData = scalePoint()
+          .domain(createDomain(rowsAmount, colsAmount))
+          .range(createRange(height, margin, rectSize));
+
+        axis.call(axisLeft(axisData));
 
         addSelectionEventListeners(g.selectAll('rect'), rectEventsModel);
       }
@@ -72,6 +85,9 @@
   onMount(() => {
     svg = createSvg(containerWidth, height);
     g = svg.append('g');
+    axis = svg.append('g');
+
+    axis.attr('transform', 'translate(30,0)');
 
     containerRef.appendChild(svg.node());
 
